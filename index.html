@@ -1,384 +1,602 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Niko Mtema — Architectural Designer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Expanded:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Niko J Mtema — Architectural Designer · Arkitekti Studios</title>
+<meta name="description" content="Niko J Mtema — architectural designer, Dar es Salaam. Commercial and residential design. Final-year Bachelor of Architecture, Ardhi University. Spaces built on contrast.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:#161310;color:#ece7df;font-family:'Inter',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-.disp{font-family:'Archivo Expanded','Archivo',sans-serif;font-weight:900;letter-spacing:-.02em;line-height:.9;text-transform:uppercase}
-.wrap{max-width:1280px;margin:0 auto;padding:0 40px}
-/* nav */
-.nav{position:sticky;top:0;z-index:50;background:rgba(22,19,16,.9);backdrop-filter:blur(8px);border-bottom:1px solid #38312a}
-.nav .in{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:18px 40px}
-.nav .name{font-family:'Archivo';font-weight:700;letter-spacing:.04em;font-size:.92rem}
-.nav .links{display:flex;gap:30px;font-size:.78rem;font-weight:500;letter-spacing:.04em}
-.nav .links a{color:#ece7df;text-decoration:none;position:relative;padding:4px 0;cursor:pointer}
-.nav .links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1.5px;background:#b5471f;transition:width .28s}
-.nav .links a:hover::after{width:100%}
-.nav .tag{font-family:'Archivo';font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:.7rem;color:#8a8073}
-.navtoggle{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:6px}
-.navtoggle span{width:24px;height:2px;background:#ece7df;display:block}
-/* hero */
-.hero{position:relative;height:90vh;min-height:640px;background:#211c18;overflow:hidden}
-.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hero .scrim{position:absolute;inset:0;background:linear-gradient(105deg,rgba(10,10,10,.78) 0%,rgba(10,10,10,.4) 46%,rgba(10,10,10,.15) 75%);pointer-events:none}
-.hero .hin{position:absolute;inset:0;max-width:1280px;margin:0 auto;padding:0 40px}
-.hero .hb{position:absolute;left:40px;right:40px;top:15%}
-.hero .loc{font-family:'Archivo';font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:.7rem;color:#e6ddcf;display:flex;align-items:center;gap:10px}
-.hero .loc span{width:8px;height:8px;background:#b5471f;display:inline-block}
-.hero h1{font-size:clamp(2.6rem,9vw,7rem);color:#fff;margin-top:20px}
-.hero h1 .dot{color:#b5471f}
-.hero .role{font-family:'Archivo';font-weight:600;font-size:clamp(1rem,2vw,1.4rem);letter-spacing:.02em;color:#e6ddcf;margin-top:16px}
-.hero p{max-width:46ch;color:#cfc6b8;font-size:1.02rem;margin-top:18px}
-.hero .acts{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
-.btn{font-family:'Archivo';font-weight:600;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;padding:14px 22px;cursor:pointer;text-decoration:none;display:inline-block;transition:.25s;border:none}
-.btn-acc{background:#b5471f;color:#fff}
-.btn-acc:hover{background:#9c3c19;transform:translateY(-2px)}
-.btn-out{border:1px solid rgba(255,255,255,.35);color:#fff;background:none}
-.btn-out:hover{background:#fff;color:#161310}
-/* duality */
-.duality{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid #38312a;background:#211c18}
-.duality>div{padding:26px 40px;border-right:1px solid #38312a}
-.duality>div:last-child{border-right:none}
-.duality .k{font-family:'Archivo Expanded';font-weight:800;font-size:1.05rem;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:6px}
-.duality .v{font-size:.86rem;color:#8a8073}
-/* reach / globe */
-.reach{background:#161310;border-top:1px solid #38312a;border-bottom:1px solid #38312a;overflow:hidden}
-.reachgrid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding-top:clamp(56px,7vw,100px);padding-bottom:clamp(56px,7vw,100px)}
-.reach-k{font-family:'Archivo';font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:.78rem;color:#b5471f}
-.reach-h{font-size:clamp(2rem,4.4vw,3.4rem);color:#ece7df;margin-top:18px;line-height:.92}
-.reach-p{color:#b3a899;font-size:1rem;max-width:42ch;margin-top:20px}
-.reach-stats{display:flex;gap:40px;margin-top:34px;flex-wrap:wrap}
-.reach-stats .rs-l{font-family:'Archivo';font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:#8a8073}
-.reach-stats .rs-v{font-family:'Archivo Expanded';font-weight:800;font-size:1.05rem;color:#ece7df;margin-top:6px;text-transform:uppercase}
-.reach-hint{display:inline-block;margin-top:26px;font-family:'Archivo';font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:#b5471f}
-.globe-wrap{display:flex;justify-content:center;align-items:center}
-#globe{width:480px;height:480px;max-width:100%;aspect-ratio:1;cursor:grab;contain:layout paint size}
-/* section heads */
-.shead{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;border-bottom:2px solid #4a4138;padding-bottom:18px;margin-bottom:50px;flex-wrap:wrap}
-.shead .l{display:flex;align-items:center;gap:14px}
-.shead .l svg{flex:none}
-.shead h2{font-size:clamp(1.8rem,4vw,3rem)}
-.shead .idx{font-family:'Archivo';font-weight:600;color:#b5471f;letter-spacing:.2em;font-size:.78rem;text-transform:uppercase}
-.sec{padding:clamp(60px,8vw,100px) 0}
-/* work rows */
-.prow{display:flex;gap:48px;align-items:center;padding:42px 0;border-bottom:1px solid #38312a;cursor:pointer}
-.prow .ph{flex:1.4;height:420px;position:relative;overflow:hidden;background:#211c18}
-.prow .ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.16,1,.3,1)}
-.prow:hover .ph img{transform:scale(1.05)}
-.prow .ibadge{position:absolute;top:16px;right:16px;background:rgba(10,10,10,.72);color:#fff;font-family:'Archivo';font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:7px 12px}
-.prow .pt{flex:1}
-.pnum{font-family:'Archivo Expanded';font-weight:900;font-size:1.5rem;color:#b8b2a6}
-.pcat{font-family:'Archivo';font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:.66rem;color:#8a8073;margin-top:14px}
-.ph3{font-family:'Archivo Expanded';font-weight:800;text-transform:uppercase;font-size:clamp(1.4rem,2.6vw,2.3rem);line-height:1;margin-top:12px}
-.pdesc{color:#b3a899;font-size:.92rem;max-width:46ch;margin-top:14px}
-.pmeta{display:flex;gap:22px;margin-top:20px;flex-wrap:wrap}
-.pmeta .m{font-family:'Archivo';font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#8a8073}
-.pmeta .m b{color:#ece7df;display:block;margin-top:3px;font-size:.82rem;letter-spacing:.02em;font-weight:600}
-.pview{display:inline-block;margin-top:22px;font-family:'Archivo';font-weight:600;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid #4a4138;padding-bottom:3px}
-.pview span{color:#b5471f}
-/* about */
-.about{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:start}
-.about .lead{font-size:1.4rem;line-height:1.5;color:#ece7df}
-.about .lead .hl{color:#b5471f}
-.about .sub{font-size:1rem;color:#b3a899;margin-top:22px;max-width:54ch}
-.card{border:1px solid #38312a;background:#211c18}
-.card .row{padding:18px 22px;border-bottom:1px solid #38312a}
-.card .row:last-child{border-bottom:none}
-.card .lab{font-family:'Archivo';font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:.64rem;color:#b5471f;margin-bottom:10px}
-.card .val{font-size:.92rem;color:#b3a899}
-.card .val .dim{color:#8a8073}
-.swwrap{display:flex;flex-wrap:wrap;gap:8px}
-.swchip{display:inline-flex;align-items:center;gap:7px;font-family:'Archivo';font-size:.72rem;font-weight:500;padding:5px 11px 5px 6px;background:#161310;border:1px solid #38312a;color:#ece7df}
-.swchip img{width:17px;height:17px;object-fit:contain;display:block;border-radius:3px}
-/* services */
-.svcgrid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid #38312a}
-.svc{padding:30px;border-right:1px solid #38312a;display:flex;flex-direction:column;transition:.3s}
-.svc:last-child{border-right:none}
-.svc:hover{background:#211c18}
-.svc .tier{font-family:'Archivo';font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:.62rem;color:#b5471f;margin-bottom:18px}
-.svc h3{font-family:'Archivo Expanded';font-weight:800;text-transform:uppercase;font-size:1.25rem;line-height:1;margin-bottom:18px}
-.svc p{font-size:.9rem;color:#b3a899;line-height:1.55;margin-bottom:24px;flex:1}
-.svc .pr{border-top:1px solid #38312a;padding-top:18px}
-.svc .amt{font-family:'Archivo Expanded';font-weight:800;font-size:1.6rem;line-height:1;display:block}
-.svc .amt small{font-family:'Archivo';font-weight:600;font-size:.7rem;color:#8a8073;letter-spacing:.04em}
-.svc .dur{font-family:'Archivo';font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#8a8073;margin-top:8px;display:block}
-.flow{margin-top:54px;border-top:2px solid #4a4138;padding-top:36px}
-.flow .fh{font-family:'Archivo';font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:.7rem;color:#b5471f;margin-bottom:30px}
-.fsteps{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
-.fstep{background:#211c18;padding:24px 22px;display:flex;gap:16px}
-.fstep .fn{font-family:'Archivo Expanded';font-weight:900;font-size:1.1rem;color:#b5471f;flex:none}
-.fstep h4{font-family:'Archivo';font-weight:700;font-size:.92rem;margin-bottom:6px}
-.fstep p{font-size:.82rem;color:#8a8073;line-height:1.5}
-/* process */
-.process{background:#211c18;color:#fff}
-.process .shead{border-color:#333}
-.psteps{display:grid;grid-template-columns:repeat(4,1fr)}
-.pstep{padding:0 26px}
-.pstep:first-child{padding-left:0}
-.pstep:last-child{padding-right:0}
-.pstep+.pstep{border-left:1px solid #2a2a2a}
-.pstep .n{font-family:'Archivo';font-weight:600;color:#b5471f;letter-spacing:.16em;font-size:.72rem;margin-bottom:18px}
-.pstep h4{font-family:'Archivo Expanded';font-weight:800;text-transform:uppercase;font-size:1.05rem;margin-bottom:12px;line-height:1.05}
-.pstep p{color:#a9a69f;font-size:.86rem}
-/* contact */
-.contact{background:#211c18}
-.cgrid{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center}
-.contact h2{font-size:clamp(2.4rem,6vw,4.5rem);margin-bottom:0}
-.contact h2 .dot{color:#b5471f}
-.contact .lede{max-width:40ch;color:#b3a899;margin:24px 0 34px;font-size:1.05rem}
-.clist{border-top:1px solid #38312a}
-.clist a,.clist div.r{display:flex;justify-content:space-between;align-items:center;padding:20px 4px;border-bottom:1px solid #38312a;text-decoration:none;color:#ece7df;transition:.25s}
-.clist a:hover{padding-left:16px;color:#b5471f}
-.clist .lab{font-family:'Archivo';font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:.66rem;color:#8a8073}
-.clist .val{font-family:'Archivo';font-weight:600;font-size:1rem}
-footer{background:#161310;color:#8a8073;padding:30px 0;border-top:1px solid #38312a}
-footer .in{max-width:1280px;margin:0 auto;padding:0 40px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-size:.76rem;font-family:'Archivo';letter-spacing:.04em}
-footer b{color:#ece7df;font-weight:600}
-.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1)}
-.rv.in{opacity:1;transform:none}
-/* lightbox */
-.lb{position:fixed;inset:0;z-index:100;background:rgba(8,7,6,.97);display:none;flex-direction:column}
-.lb.open{display:flex}
-.lb-top{display:flex;align-items:center;justify-content:space-between;padding:20px clamp(20px,4vw,48px);color:#fff;flex-wrap:wrap;gap:10px}
-.lb-top .t{font-family:'Archivo Expanded';font-weight:800;text-transform:uppercase;font-size:1.05rem}
-.lb-top .t small{display:block;font-family:'Archivo';font-weight:600;font-size:.62rem;letter-spacing:.18em;color:#b5471f;margin-bottom:4px}
-.lb-top .right{display:flex;align-items:center;gap:20px}
-.lb-count{font-family:'Archivo';font-size:.8rem;letter-spacing:.1em;color:#aaa}
-.lb-close{background:none;border:1px solid #555;color:#fff;width:42px;height:42px;border-radius:50%;cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:.2s}
-.lb-close:hover{background:#b5471f;border-color:#b5471f}
-.lb-stage{flex:1;display:flex;align-items:center;justify-content:center;position:relative;padding:0 clamp(10px,4vw,40px);min-height:0}
-.lb-img{max-width:100%;max-height:100%;object-fit:contain;box-shadow:0 30px 80px rgba(0,0,0,.6);user-select:none}
-.lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.08);border:1px solid #555;color:#fff;width:54px;height:54px;border-radius:50%;cursor:pointer;font-size:1.4rem;display:flex;align-items:center;justify-content:center;transition:.2s;z-index:2}
-.lb-nav:hover{background:#b5471f;border-color:#b5471f}
-.lb-prev{left:clamp(8px,2vw,24px)}.lb-next{right:clamp(8px,2vw,24px)}
-.lb-cap{color:#ddd;text-align:center;padding:16px 20px;font-size:.9rem;min-height:30px}
-.lb-cap b{color:#fff;font-family:'Archivo';font-weight:600}
-.lb-film{display:flex;gap:8px;padding:14px clamp(16px,4vw,48px) 24px;overflow-x:auto;justify-content:center}
-.lb-film img{height:58px;width:88px;object-fit:cover;opacity:.4;cursor:pointer;border:2px solid transparent;transition:.2s;flex:0 0 auto}
-.lb-film img:hover{opacity:.8}
-.lb-film img.active{opacity:1;border-color:#b5471f}
-@media(max-width:1040px){
-  .about{grid-template-columns:1fr}.cgrid{grid-template-columns:1fr}
-  .reachgrid{grid-template-columns:1fr;gap:36px}.globe-wrap{order:-1}
-  .psteps{grid-template-columns:repeat(2,1fr)}
-  .pstep{border-left:none!important;padding:0 0 24px}
-}
-@media(max-width:760px){
-  .wrap,.nav .in,footer .in{padding-left:20px;padding-right:20px}
-  .nav .links{display:none;position:absolute;top:60px;left:0;right:0;flex-direction:column;background:#161310;padding:10px 20px;gap:0;border-bottom:1px solid #38312a}
-  .nav .links.open{display:flex}
-  .nav .links a{padding:14px 0;border-bottom:1px solid #38312a}
-  .nav .tag{display:none}.navtoggle{display:flex}
-  .hero .hb{left:20px;right:20px}
-  .prow,.prow:nth-child(even){flex-direction:column;gap:20px}
-  .prow .ph{width:100%;flex:none;height:260px}.prow .pt{padding:0!important}
-  .duality{grid-template-columns:1fr}.duality>div{border-right:none;border-bottom:1px solid #38312a}
-  .svcgrid{grid-template-columns:1fr}.svc{border-right:none;border-bottom:1px solid #38312a}
-  .fsteps{grid-template-columns:1fr}
-  .lb-nav{width:44px;height:44px}.lb-film{display:none}
-}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
-</style></head><body>
+  :root{
+    --bg:#161310; --panel:#221d18; --panel-2:#2a2520; --line:#3a332c;
+    --ink:#ece7df; --muted:#a59c8f; --faint:#6f675c;
+    --coral:#b5471f; --coral-2:#c75a30;
+    --display:'Archivo',sans-serif; --body:'Inter',system-ui,sans-serif;
+    --maxw:1180px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .eyebrow{font-family:var(--body);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--coral-2);font-weight:600}
+  .section-title{font-family:var(--display);font-weight:800;font-size:clamp(28px,4vw,46px);letter-spacing:-.02em;line-height:1.02}
+  .lead{color:var(--muted);font-size:18px;max-width:62ch}
 
-<div class="nav"><div class="in">
-  <div class="name">NIKO&nbsp;J&nbsp;MTEMA</div>
-  <button class="navtoggle" id="tg"><span></span><span></span><span></span></button>
-  <div class="links" id="lk"><a href="#work">Work</a><a href="#about">About</a><a href="#services">Services</a><a href="#process">Process</a><a href="#contact">Contact</a></div>
-  <div class="tag">DSM · TZ</div>
-</div></div>
+  /* NAV */
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(22,19,16,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{font-family:var(--display);font-weight:900;letter-spacing:-.01em;font-size:17px;display:flex;align-items:center;gap:8px}
+  .brand b{color:var(--coral-2);font-weight:900}
+  .brand small{font-family:var(--body);font-weight:500;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+  .nav-links{display:flex;gap:26px;align-items:center}
+  .nav-links a{color:var(--muted);font-size:14px;font-weight:500;transition:color .2s}
+  .nav-links a:hover{color:var(--ink)}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;padding:10px 18px;border-radius:999px;transition:.2s;cursor:pointer;border:1px solid transparent}
+  .btn-primary{background:var(--coral);color:#fff}
+  .btn-primary:hover{background:var(--coral-2)}
+  .btn-ghost{border-color:var(--line);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--coral-2);color:#fff}
+  .nav-cta{display:flex;gap:10px;align-items:center}
 
-<header class="hero">
-  <img src="IMGKEY:hero_library" alt="Library building render at dusk">
-  <div class="scrim"></div>
-  <div class="hin"><div class="hb">
-    <div class="loc"><span></span>Dar es Salaam, Tanzania · B.Arch, Ardhi University</div>
-    <h1 class="disp">Architectural<span class="dot">.</span></h1>
-    <div class="role">Designer of spaces built on contrast &amp; balance</div>
-    <p>I design buildings around how people actually move, feel and live inside them &mdash; treating every space as a question of psychology first, geometry second.</p>
-    <div class="acts"><a href="#work" class="btn btn-acc">Explore the work &rarr;</a><a href="#contact" class="btn btn-out">Commission a project</a></div>
-  </div></div>
+  /* HERO */
+  .hero{position:relative;padding:84px 0 64px;border-bottom:1px solid var(--line);overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+  .hero h1{font-family:var(--display);font-weight:900;font-size:clamp(44px,7.5vw,92px);line-height:.94;letter-spacing:-.03em}
+  .hero h1 .accent{color:var(--coral-2)}
+  .tagline{margin-top:22px;font-family:var(--display);font-weight:500;font-size:clamp(20px,2.4vw,28px);letter-spacing:-.01em}
+  .tagline-gloss{margin-top:10px;color:var(--muted);font-size:17px;max-width:50ch}
+  .hero-anchor{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
+  .chip{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:500;color:var(--ink);background:var(--panel);border:1px solid var(--line);padding:8px 14px;border-radius:999px}
+  .chip .dot{width:7px;height:7px;border-radius:50%;background:var(--coral-2)}
+  .hero-cta{margin-top:30px;display:flex;flex-wrap:wrap;gap:12px}
+  .hero-art{position:relative;aspect-ratio:4/5;border-radius:16px;background:linear-gradient(160deg,#2a2520,#1c1814);background-size:cover;background-position:center;border:1px solid var(--line);overflow:hidden;display:flex;align-items:flex-end;padding:18px}
+  .hero-art::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(15,12,10,.72),rgba(15,12,10,0) 45%)}
+  .hero-art .cap{position:relative;z-index:1;font-size:13px;color:#ece7df;font-weight:500}
+
+  /* STATS strip */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:54px}
+  .stat{padding:20px 22px;border-right:1px solid var(--line)}
+  .stat:last-child{border-right:none}
+  .stat .num{font-family:var(--display);font-weight:800;font-size:28px;letter-spacing:-.02em}
+  .stat .lbl{color:var(--muted);font-size:13px;margin-top:2px}
+
+  /* SECTION */
+  section.block{padding:84px 0;border-bottom:1px solid var(--line)}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px}
+  .about-anchor{font-family:var(--display);font-weight:500;font-size:22px;line-height:1.35;letter-spacing:-.01em}
+  .about-anchor b{color:var(--coral-2);font-weight:600}
+  .about-body p{color:var(--muted);font-size:17px;margin-bottom:16px;max-width:60ch}
+  .about-body p strong{color:var(--ink);font-weight:600}
+
+  /* EDUCATION timeline */
+  .edu{margin-top:30px;border-left:2px solid var(--line);padding-left:22px;display:flex;flex-direction:column;gap:18px}
+  .edu .row .yr{font-family:var(--display);font-weight:800;font-size:14px;color:var(--coral-2);letter-spacing:.04em}
+  .edu .row .ti{font-size:15px;color:var(--ink);margin-top:2px}
+  .edu .row .su{font-size:14px;color:var(--muted)}
+
+  /* SKILLS */
+  .skill-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .skill-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .skill-card h4{font-family:var(--display);font-weight:600;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--coral-2);margin-bottom:14px}
+  .skill-tags{display:flex;flex-wrap:wrap;gap:8px}
+  .skill-tags span{font-size:13px;color:var(--ink);background:var(--panel-2);border:1px solid var(--line);padding:6px 12px;border-radius:8px}
+
+  /* PROJECTS */
+  .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  .proj{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:.25s;display:flex;flex-direction:column}
+  .proj:hover{border-color:var(--coral-2);transform:translateY(-3px)}
+  .proj .thumb{aspect-ratio:16/10;background:linear-gradient(150deg,#2c2620,#1b1713);position:relative;display:flex;align-items:center;justify-content:center;color:var(--faint);font-size:13px;text-align:center;padding:20px;border-bottom:1px solid var(--line)}
+  .proj.feature{grid-column:span 2}
+  .proj.feature .thumb{aspect-ratio:21/9}
+  .gallery{display:grid;grid-template-columns:2.2fr 1fr;gap:6px;background:var(--line);border-bottom:1px solid var(--line);height:clamp(280px,34vw,400px)}
+  .gallery .g-main{position:relative;background:#1b1713 center/cover no-repeat;display:flex;align-items:flex-start}
+  .gallery .g-main .status{position:absolute;top:14px;left:14px}
+  .gallery .g-side{display:grid;grid-auto-rows:1fr;gap:6px}
+  .gallery .g-side>div{background:#1b1713 center/cover no-repeat}
+  .thumb-img{aspect-ratio:16/10;background:#1b1713 center/cover no-repeat;position:relative;border-bottom:1px solid var(--line)}
+  .thumb-img .status{position:absolute;top:14px;left:14px}
+  .thumb-strip{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:4px;padding:4px;background:var(--line)}
+  .thumb-strip>div{aspect-ratio:16/10;background:#1b1713 center/cover no-repeat;border-radius:6px}
+  .sketch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--line);border-bottom:1px solid var(--line)}
+  .sketch-grid figure{position:relative;margin:0;background:#f4efe6;aspect-ratio:4/3;overflow:hidden}
+  .sketch-grid img{width:100%;height:100%;object-fit:contain;padding:6px;display:block}
+  .sketch-grid figcaption{position:absolute;bottom:0;left:0;right:0;font-family:var(--display);font-weight:600;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#5b5247;background:rgba(244,239,230,.92);padding:5px 9px}
+  .sketch-grid .status{position:absolute;top:12px;left:12px;z-index:1}
+  .status{position:absolute;top:14px;left:14px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:5px 11px;border-radius:999px;border:1px solid;background:rgba(181,71,31,.16);color:#e89a78;border-color:rgba(181,71,31,.5)}
+  .status.sketch{background:rgba(165,156,143,.14);color:#cbc3b6;border-color:rgba(165,156,143,.4)}
+  .proj .body{padding:22px;display:flex;flex-direction:column;gap:12px;flex:1}
+  .proj .meta{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;flex-wrap:wrap}
+  .proj h3{font-family:var(--display);font-weight:800;font-size:23px;letter-spacing:-.01em;line-height:1.1}
+  .proj p{color:var(--muted);font-size:15px}
+  .process{display:flex;gap:8px;margin-top:auto;flex-wrap:wrap}
+  .process .step{flex:1;min-width:90px;background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .process .step .k{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--coral-2);font-weight:600}
+  .process .step .v{font-size:13px;color:var(--ink);margin-top:3px;line-height:1.35}
+
+  /* SERVICES */
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .svc{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:24px}
+  .svc .ic{width:42px;height:42px;border-radius:10px;background:var(--panel-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--coral-2);font-family:var(--display);font-weight:800;margin-bottom:14px}
+  .svc h4{font-family:var(--display);font-weight:600;font-size:18px;margin-bottom:6px}
+  .svc p{color:var(--muted);font-size:15px}
+
+  /* REACH / GLOBE */
+  .reach-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .reach-stats{display:flex;gap:40px;margin-top:34px;flex-wrap:wrap}
+  .reach-stats .rk{font-family:var(--display);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  .reach-stats .rv{font-family:var(--display);font-weight:800;font-size:17px;color:var(--ink);margin-top:6px;text-transform:uppercase}
+  .drag-hint{display:inline-block;margin-top:26px;font-family:var(--display);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--coral-2)}
+  .globe-wrap{display:flex;justify-content:center;align-items:center}
+  #globe{width:480px;height:480px;max-width:100%;aspect-ratio:1;cursor:grab;contain:layout paint size}
+
+  /* CONTACT */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+  .contact-copy .lead{margin-top:18px}
+  .contact-list{margin-top:26px;display:flex;flex-direction:column;gap:14px}
+  .contact-list a{display:flex;align-items:center;gap:12px;color:var(--ink);font-size:16px;font-weight:500}
+  .contact-list a .k{width:34px;height:34px;border-radius:8px;background:var(--panel-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--coral-2);font-size:14px;font-family:var(--display);font-weight:800}
+  .contact-list a:hover{color:var(--coral-2)}
+  form{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px}
+  .field{margin-bottom:16px}
+  label{display:block;font-size:13px;color:var(--muted);margin-bottom:7px;font-weight:500}
+  input,textarea,select{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--ink);font-family:var(--body);font-size:15px;transition:.2s}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--coral-2)}
+  textarea{resize:vertical;min-height:110px}
+  form .btn-primary{width:100%;justify-content:center;margin-top:6px}
+
+  footer{padding:42px 0;text-align:center;color:var(--faint);font-size:14px}
+  footer .brand{justify-content:center;margin-bottom:10px}
+
+  @media(max-width:880px){
+    .hero-grid,.about-grid,.contact-grid,.reach-grid{grid-template-columns:1fr;gap:32px}
+    .hero-art{aspect-ratio:16/11}
+    .skill-cols,.svc-grid{grid-template-columns:1fr}
+    .proj-grid{grid-template-columns:1fr}
+    .proj.feature{grid-column:span 1}
+    .sketch-grid{grid-template-columns:repeat(2,1fr)}
+    .stats{grid-template-columns:1fr 1fr}
+    .stat:nth-child(2){border-right:none}
+    .stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid var(--line)}
+    .nav-links{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">NIKO<b>·</b>MTEMA <small>Arkitekti Studios</small></a>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#work">Work</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="Niko-Mtema-CV.pdf" download>↓ CV</a>
+      <a class="btn btn-primary" href="#contact">Let's talk</a>
+    </div>
+  </div>
 </header>
 
-<div class="reach"><div class="wrap reachgrid">
-  <div class="rv">
-    <div class="reach-k">Reach</div>
-    <div class="reach-h disp">From Dar es Salaam,<br>working worldwide</div>
-    <p class="reach-p">Commissions and collaborations across hospitality, residential and interiors &mdash; on site in Tanzania, remote everywhere else.</p>
-    <div class="reach-stats">
-      <div><div class="rs-l">Home base</div><div class="rs-v">Dar es Salaam</div></div>
-      <div><div class="rs-l">Coordinates</div><div class="rs-v">6.8&deg;S · 39.2&deg;E</div></div>
-      <div><div class="rs-l">Availability</div><div class="rs-v">Open · 2026</div></div>
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">Architectural Designer · Dar es Salaam</span>
+          <h1>NIKO&nbsp;J<br><span class="accent">MTEMA</span></h1>
+          <p class="tagline">Designer of spaces built on contrast.</p>
+          <p class="tagline-gloss">Commercial and residential design rooted in duality — opposing elements brought into harmony, from grounded stone to rising glass.</p>
+
+          <div class="hero-anchor">
+            <span class="chip"><span class="dot"></span>Dar es Salaam, Tanzania</span>
+            <span class="chip"><span class="dot"></span>B.Arch — Ardhi University (final year)</span>
+            <span class="chip"><span class="dot"></span>Commercial · Residential · Interiors</span>
+          </div>
+
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#work">View selected work</a>
+            <a class="btn btn-ghost" href="Niko-Mtema-CV.pdf" download>↓ Download CV (PDF)</a>
+          </div>
+        </div>
+
+        <div class="hero-art" style="background-image:url('images/hero.jpg')">
+          <div class="cap">Civic &amp; commercial design — Dar es Salaam</div>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><div class="num">350+</div><div class="lbl">Housing units designed</div></div>
+        <div class="stat"><div class="num">5</div><div class="lbl">Studio project bodies of work</div></div>
+        <div class="stat"><div class="num">2026</div><div class="lbl">B.Arch, Ardhi University</div></div>
+        <div class="stat"><div class="num">End-to-end</div><div class="lbl">Concept → 3D → drawings</div></div>
+      </div>
     </div>
-    <div class="reach-hint">&mdash; drag to spin the globe</div>
-  </div>
-  <div class="globe-wrap"><canvas id="globe" width="960" height="960"></canvas></div>
-</div></div>
+  </section>
 
-<div class="duality">
-  <div><div class="k">Grounded podium</div><div class="v">Stone-clad mass that anchors a building to its context.</div></div>
-  <div><div class="k">Rising tower</div><div class="v">Glass &amp; concrete expressing lightness and precision.</div></div>
-  <div><div class="k">Human core</div><div class="v">Every decision weighed against the people who use it.</div></div>
-</div>
-
-<section id="work" class="sec"><div class="wrap">
-  <div class="shead rv"><div class="l"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#b5471f" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V5l8-2v18M19 21V10l-6-3"/><path d="M8 9h2M8 13h2M8 17h2"/></svg><h2 class="disp">Selected Work</h2></div><div class="idx">6 Projects — tap to open</div></div>
-  <div class="prow" data-proj="hotel"><div class="ph"><img loading="lazy" decoding="async" src="IMGKEY:hotel_hero" alt="5-Star Hotel"><div class="ibadge">4 images</div></div><div class="pt" style="">
-        <div class="pnum">01</div>
-        <div class="pcat">Hospitality · Commercial</div>
-        <div class="ph3">5-Star Hotel</div>
-        <p class="pdesc">Conceived around the idea of duality, where opposing elements coexist in harmony. A grounded stone-clad podium anchors the building to its context, while two refined towers rise above in glass and concrete, expressing lightness and precision. Clean geometric forms are softened by subtle organic curves, creating a dialogue between structure and fluidity.</p>
-        <div class="pmeta"><span class="m">Type<b>Hotel + Spa</b></span><span class="m">Role<b>Concept → Detail</b></span><span class="m">Tools<b>Revit · Lumion</b></span></div>
-        <div class="pview">View gallery <span>(4)</span> &rarr;</div>
-      </div></div>
-<div class="prow" data-proj="housing"><div class="pt" style="padding-top:36px;">
-        <div class="pnum">02</div>
-        <div class="pcat">Residential · Community</div>
-        <div class="ph3">Affordable Housing</div>
-        <p class="pdesc">Over 350 residential units within a thoughtfully planned, community-oriented environment. A colour-coded window framing system distinguishes building blocks and unit clusters through vibrant accent colours. This enhances wayfinding, simplifies unit identification for residents and visitors, and creates a lively architectural character without increasing construction complexity.</p>
-        <div class="pmeta"><span class="m">Scale<b>350+ units</b></span><span class="m">Idea<b>Colour wayfinding</b></span><span class="m">Tools<b>Revit · D5</b></span></div>
-        <div class="pview">View gallery <span>(1)</span> &rarr;</div>
-      </div><div class="ph"><img loading="lazy" decoding="async" src="IMGKEY:housing_main" alt="Affordable Housing"><div class="ibadge">1 images</div></div></div>
-<div class="prow" data-proj="residences"><div class="ph"><img loading="lazy" decoding="async" src="IMGKEY:res_day" alt="Residences"><div class="ibadge">2 images</div></div><div class="pt" style="padding-bottom:24px;">
-        <div class="pnum">03</div>
-        <div class="pcat">Residential · Private</div>
-        <div class="ph3">Residences</div>
-        <p class="pdesc">A private single-family residence exploring massing, daylight and the threshold between interior and garden. Tuned to a warm tropical climate and everyday family life — a sheltered carport, a generous entry porch, and full-height glazing that opens living spaces to the landscaped grounds.</p>
-        <div class="pmeta"><span class="m">Type<b>Private home</b></span><span class="m">Focus<b>Massing · Light</b></span><span class="m">Tools<b>ArchiCAD · Vray</b></span></div>
-        <div class="pview">View gallery <span>(2)</span> &rarr;</div>
-      </div></div>
-<div class="prow" data-proj="interiors"><div class="pt" style="padding-top:30px;">
-        <div class="pnum">04</div>
-        <div class="pcat">Interior Design · Apartment</div>
-        <div class="ph3">Interiors</div>
-        <p class="pdesc">A residential interior where colour and texture carry the mood — a sage modular sofa against warm peach walls, bold accent cushions, soft natural light and tactile rugs. The same psychology that shapes a building, carried indoors to the scale of touch and everyday living.</p>
-        <div class="pmeta"><span class="m">Scope<b>Living · Bedroom</b></span><span class="m">Focus<b>Colour & texture</b></span><span class="m">Tools<b>3ds Max · Vray</b></span></div>
-        <div class="pview">View gallery <span>(6)</span> &rarr;</div>
-      </div><div class="ph"><img loading="lazy" decoding="async" src="IMGKEY:int_living1" alt="Interiors"><div class="ibadge">6 images</div></div></div>
-<div class="prow" data-proj="luxury"><div class="ph"><img loading="lazy" decoding="async" src="IMGKEY:lux_lounge" alt="Luxury Residence Interior"><div class="ibadge">10 images</div></div><div class="pt" style="">
-        <div class="pnum">05</div>
-        <div class="pcat">Interior Design · Luxury Residence</div>
-        <div class="ph3">Luxury Residence Interior</div>
-        <p class="pdesc">A complete luxury residence interior package developed room by room. Double-height living and dining spaces are anchored by marble-and-timber feature walls, concealed cove lighting and a sculptural floating staircase. Private quarters — master suite, guest rooms and spa-like bathrooms — give way to a fibre-optic starlight home cinema. Material, light and proportion are tuned across every space for a single, coherent atmosphere.</p>
-        <div class="pmeta"><span class="m">Scope<b>Whole-home, 7 spaces</b></span><span class="m">Focus<b>Material & light</b></span><span class="m">Tools<b>3ds Max · Corona</b></span></div>
-        <div class="pview">View gallery <span>(10)</span> &rarr;</div>
-      </div></div>
-<div class="prow" data-proj="sketches"><div class="pt" style="padding-top:30px;">
-        <div class="pnum">06</div>
-        <div class="pcat">Drawing · Hand Drafting</div>
-        <div class="ph3">Hand Sketches</div>
-        <p class="pdesc">Where every project begins — and proof the thinking holds before any software opens. A fully hand-drafted cafeteria site plan at 1:200, complete with landscape, parking and assembly zoning; a colour-pencil exterior perspective; and measured building sections. Pencil, ink and a steady hand.</p>
-        <div class="pmeta"><span class="m">Medium<b>Pencil · Ink · Colour</b></span><span class="m">Work<b>Site plan · Sections · Perspective</b></span><span class="m">Stage<b>Pre-concept</b></span></div>
-        <div class="pview">View gallery <span>(3)</span> &rarr;</div>
-      </div><div class="ph"><img loading="lazy" decoding="async" src="IMGKEY:sketch_cafeteria" alt="Hand Sketches"><div class="ibadge">3 images</div></div></div>
-
-</div></section>
-
-<section id="about" class="sec"><div class="wrap">
-  <div class="shead rv"><div class="l"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#b5471f" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><h2 class="disp">About</h2></div><div class="idx">The Designer</div></div>
-  <div class="about rv">
-    <div>
-      <p class="lead">I&rsquo;m Niko Mtema, an architectural designer whose path has been shaped by a deep interest in <span class="hl">structures, building systems, and how they affect the people and environment around them.</span></p>
-      <p class="sub">Every decision I make starts from the psychology that drives and defines a space. I believe architecture should produce a greater good for humanity &mdash; and I aim to create spaces that define generations.</p>
+  <!-- ABOUT -->
+  <section class="block" id="about">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">About</span>
+          <h2 class="section-title">Duality, balance,<br>and the people inside</h2>
+        </div>
+      </div>
+      <div class="about-grid">
+        <div>
+          <p class="about-anchor">I'm <b>Niko J Mtema</b>, an architectural designer based in <b>Dar es Salaam, Tanzania</b>, completing my <b>Bachelor of Architecture at Ardhi University</b> (2021–2026). I work across commercial and residential design under <b>Arkitekti Studios</b>.</p>
+          <div class="edu">
+            <div class="row"><div class="yr">2021 — 2026</div><div class="ti">Bachelor of Architecture <span class="su">(ongoing)</span></div><div class="su">Ardhi University</div></div>
+            <div class="row"><div class="yr">2019 — 2021</div><div class="ti">Advanced Secondary Level</div><div class="su">Minaki High School</div></div>
+            <div class="row"><div class="yr">2015 — 2018</div><div class="ti">Ordinary Secondary Level</div><div class="su">Kibaha Secondary School</div></div>
+          </div>
+        </div>
+        <div class="about-body">
+          <p>My work is shaped by a deep interest in how people inhabit space — not only how a building looks, but how it feels to move through it.</p>
+          <p><strong>I design around contrast and balance:</strong> grounded against light, geometric against organic, structure against fluidity. Opposing elements brought into a single, coherent whole.</p>
+          <p>I take a project through every stage — concept, 3D visualization, and a full set of working drawings — and I keep drawing by hand throughout, because the idea should be tested in pencil before any software opens.</p>
+          <p style="font-size:14px;color:var(--faint);margin-top:4px"><strong style="color:var(--muted)">Languages:</strong> Swahili, English &nbsp;·&nbsp; <strong style="color:var(--muted)">Interests:</strong> Sketching, 3D art, animation, photography, football</p>
+        </div>
+      </div>
     </div>
-    <div class="card">
-      <div class="row"><div class="lab">Education</div><div class="val">B.Arch (ongoing), Ardhi University · 2021&ndash;2026<br><span class="dim">Minaki High School · Kibaha Secondary</span></div></div>
-      <div class="row"><div class="lab">Software</div><div class="swwrap"><span class="swchip"><img src="LOGOKEY:revit" alt="">Revit</span><span class="swchip"><img src="LOGOKEY:archicad" alt="">ArchiCAD</span><span class="swchip"><img src="LOGOKEY:3dsmax" alt="">3ds Max</span><span class="swchip"><img src="LOGOKEY:vray" alt="">V-Ray</span><span class="swchip"><img src="LOGOKEY:lumion" alt="">Lumion</span><span class="swchip"><img src="LOGOKEY:d5" alt="">D5</span><span class="swchip"><img src="LOGOKEY:photoshop" alt="">Photoshop</span><span class="swchip"><img src="LOGOKEY:illustrator" alt="">Illustrator</span><span class="swchip"><img src="LOGOKEY:indesign" alt="">InDesign</span></div></div>
-      <div class="row"><div class="lab">Languages</div><div class="val">Swahili · English</div></div>
-      <div class="row"><div class="lab">Beyond the desk</div><div class="val">Sketching · 3D visual art · Animation · Photography · Football</div></div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="block" id="skills">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Tools &amp; Skills</span>
+          <h2 class="section-title">How the work gets made</h2>
+        </div>
+        <p class="lead">A modelling, rendering and documentation stack built for commercial and residential delivery.</p>
+      </div>
+      <div class="skill-cols">
+        <div class="skill-card">
+          <h4>Design &amp; Modelling</h4>
+          <div class="skill-tags">
+            <span>Revit</span><span>ArchiCAD</span><span>3ds Max</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h4>Visualization</h4>
+          <div class="skill-tags">
+            <span>Lumion</span><span>D5 Render</span><span>V-Ray</span><span>Hand rendering</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h4>Graphics &amp; Layout</h4>
+          <div class="skill-tags">
+            <span>Adobe Photoshop</span><span>Adobe Illustrator</span><span>Adobe InDesign</span><span>Canva</span>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div></section>
+  </section>
 
-<section id="services" class="sec"><div class="wrap">
-  <div class="shead rv"><div class="l"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#b5471f" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg><h2 class="disp">Services</h2></div><div class="idx">What I Offer</div></div>
-  <div class="svcgrid rv">
-    <div class="svc"><div class="tier">01 — Design</div><h3>Design Project</h3><p>All stages: floor plan, interior concept, 3D visualization and a full package of working drawings &mdash; finishes, plumbing, lighting and joinery, plus shop drawings for custom furniture.</p><div class="pr"><span class="amt">TZS&nbsp;10,000<small>&nbsp;/ m²</small></span><span class="dur">From 2 months</span></div></div>
-    <div class="svc"><div class="tier">02 — Budgeting</div><h3>Estimate Preparation</h3><p>A comprehensive cost overview with key figures per section. I source quotes from showrooms and suppliers, consult contractors, and balance quality against cost.</p><div class="pr"><span class="amt">TZS&nbsp;1,500<small>&nbsp;/ m²</small></span><span class="dur">About 1 month</span></div></div>
-    <div class="svc"><div class="tier">03 — Delivery</div><h3>Project Completion</h3><p>Procurement for custom-made and prefabricated items. We select materials together; I verify correct delivery to site and coordinate lead times against the build programme.</p><div class="pr"><span class="amt">5%<small>&nbsp;of estimate</small></span><span class="dur">Tied to build timeline</span></div></div>
-  </div>
-  <div class="flow rv"><div class="fh">How a project runs — step by step</div><div class="fsteps"><div class="fstep"><div class="fn">01</div><div class="fc"><h4>Meeting &amp; acquaintance</h4><p>I explain how I work and show real examples &mdash; an album, an estimate, a completed set.</p></div></div><div class="fstep"><div class="fn">02</div><div class="fc"><h4>Signing the contract</h4><p>The agreement sets the terms between designer and client.</p></div></div><div class="fstep"><div class="fn">03</div><div class="fc"><h4>Surveying work</h4><p>Photographic recording and accurate measurement of every room.</p></div></div><div class="fstep"><div class="fn">04</div><div class="fc"><h4>Project brief</h4><p>A meeting on preferences and lifestyle, a questionnaire, agreed room layouts.</p></div></div><div class="fstep"><div class="fn">05</div><div class="fc"><h4>Layout development</h4><p>Plan options drawn to the brief; together we choose the optimal one.</p></div></div><div class="fstep"><div class="fn">06</div><div class="fc"><h4>3D visualization</h4><p>Visuals of the main spaces showing the key ideas, then the rest.</p></div></div><div class="fstep"><div class="fn">07</div><div class="fc"><h4>Working drawings</h4><p>Full documentation in BIM &mdash; the interior built digitally first.</p></div></div></div></div>
-</div></section>
+  <!-- WORK -->
+  <section class="block" id="work">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Selected Work</span>
+          <h2 class="section-title">Six bodies of work</h2>
+        </div>
+        <p class="lead">Individual studio projects from the Bachelor of Architecture at Ardhi University, spanning commercial, residential, interior and freehand work.</p>
+      </div>
 
-<section id="process" class="process sec"><div class="wrap">
-  <div class="shead rv"><div class="l"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#b5471f" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M16 8l-2 6-6 2 2-6 6-2z"/></svg><h2 class="disp">How I Work</h2></div><div class="idx">Process</div></div>
-  <div class="psteps">
-    <div class="pstep rv"><div class="n">01</div><h4>Sketch &amp; Brief</h4><p>By hand. Site plans, sections and studies test the idea before any software opens.</p></div>
-    <div class="pstep rv"><div class="n">02</div><h4>Space &amp; Psychology</h4><p>Plan the human scenarios first &mdash; how people move, gather and feel.</p></div>
-    <div class="pstep rv"><div class="n">03</div><h4>Model &amp; Detail</h4><p>Build it in Revit/ArchiCAD down to junctions, materials and tolerances.</p></div>
-    <div class="pstep rv"><div class="n">04</div><h4>Render &amp; Deliver</h4><p>Communicate the result with renders, drawings and a clear handover.</p></div>
-  </div>
-</div></section>
+      <div class="proj-grid">
 
-<section id="contact" class="contact sec"><div class="wrap">
-  <div class="cgrid">
-    <div class="rv">
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#b5471f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin-bottom:20px;"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-      <h2 class="disp">Let&rsquo;s build<br>something<span class="dot">.</span></h2>
-      <p class="lede">Available for commissions, collaborations and full-time roles &mdash; residential, commercial or interior. Tell me about the site and the people who&rsquo;ll use it.</p>
-      <a href="mailto:mnick123456@gmail.com?subject=Project%20enquiry" class="btn btn-acc">Start a project &rarr;</a>
+        <!-- FEATURE: 5-star hotel -->
+        <article class="proj feature">
+          <div class="gallery">
+            <div class="g-main" style="background-image:url('images/hotel-1.jpg')">
+              <span class="status">Studio Project</span>
+            </div>
+            <div class="g-side">
+              <div style="background-image:url('images/hotel-2.jpg')"></div>
+              <div style="background-image:url('images/hotel-3.jpg')"></div>
+              <div style="background-image:url('images/hotel-4.jpg')"></div>
+            </div>
+          </div>
+          <div class="body">
+            <div class="meta"><span>Commercial · Hospitality</span><span>·</span><span>Ardhi University studio</span></div>
+            <h3>A 5-Star Hotel</h3>
+            <p>Defined by contrast and balance, the hotel is conceived around duality — opposing elements coexisting in harmony. A stone-clad podium anchors the building to its context while two refined towers rise above in glass and concrete, expressing lightness and precision. Clean geometric forms are softened by subtle organic curves, creating a dialogue between structure and fluidity.</p>
+            <div class="process">
+              <div class="step"><div class="k">Concept</div><div class="v">Duality — grounded mass vs. rising lightness</div></div>
+              <div class="step"><div class="k">Form</div><div class="v">Stone podium, twin glass-and-concrete towers</div></div>
+              <div class="step"><div class="k">Detail</div><div class="v">Geometry softened by organic curves</div></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- affordable housing -->
+        <article class="proj">
+          <div class="thumb-img" style="background-image:url('images/housing-1.jpg')">
+            <span class="status">Studio Project</span>
+          </div>
+          <div class="thumb-strip">
+            <div style="background-image:url('images/housing-2.jpg')"></div>
+            <div style="background-image:url('images/housing-3.jpg')"></div>
+          </div>
+          <div class="body">
+            <div class="meta"><span>Residential</span><span>·</span><span>350+ units</span></div>
+            <h3>Affordable Housing</h3>
+            <p>Over 350 residential units in a community-oriented plan. A colour-coded window-framing system distinguishes blocks and unit clusters through vibrant accents — improving wayfinding and unit identification without adding construction complexity.</p>
+          </div>
+        </article>
+
+        <!-- residentials -->
+        <article class="proj">
+          <div class="thumb-img" style="background-image:url('images/res-1.jpg')">
+            <span class="status">Studio Project</span>
+          </div>
+          <div class="thumb-strip">
+            <div style="background-image:url('images/res-2.jpg')"></div>
+          </div>
+          <div class="body">
+            <div class="meta"><span>Residential</span><span>·</span><span>Studio work</span></div>
+            <h3>Residentials</h3>
+            <p>A collection of residential studies exploring massing, daylight and the threshold between interior and garden — homes that open up as the day moves across them.</p>
+          </div>
+        </article>
+
+        <!-- interior -->
+        <article class="proj feature">
+          <div class="gallery">
+            <div class="g-main" style="background-image:url('images/interior-4.jpg')">
+              <span class="status">Studio Project</span>
+            </div>
+            <div class="g-side">
+              <div style="background-image:url('images/interior-1.jpg')"></div>
+              <div style="background-image:url('images/interior-2.jpg')"></div>
+              <div style="background-image:url('images/interior-3.jpg')"></div>
+              <div style="background-image:url('images/interior-5.jpg')"></div>
+            </div>
+          </div>
+          <div class="body">
+            <div class="meta"><span>Interiors</span><span>·</span><span>Studio work</span></div>
+            <h3>Interior Design</h3>
+            <p>Interiors where colour and texture carry the mood — sage green and burnt orange against warm plaster, daylight and lamplight studied as carefully as the furniture. Spaces built digitally first, then resolved down to material and finish.</p>
+          </div>
+        </article>
+
+        <!-- marble interior -->
+        <article class="proj feature">
+          <div class="gallery">
+            <div class="g-main" style="background-image:url('images/marble-3.jpg')">
+              <span class="status">Studio Project</span>
+            </div>
+            <div class="g-side">
+              <div style="background-image:url('images/marble-1.jpg')"></div>
+              <div style="background-image:url('images/marble-2.jpg')"></div>
+              <div style="background-image:url('images/marble-4.jpg')"></div>
+              <div style="background-image:url('images/marble-5.jpg')"></div>
+            </div>
+          </div>
+          <div class="body">
+            <div class="meta"><span>Interiors</span><span>·</span><span>Double-height living</span></div>
+            <h3>Marble Interior</h3>
+            <p>Double-height living anchored by marble — a stair clad in book-matched stone, a media wall framed in marble, a freestanding bath set against the skyline, a private cinema under a starlit ceiling. Contrast between stone, light and void sets the entire register of the space.</p>
+          </div>
+        </article>
+
+        <!-- hand sketches -->
+        <article class="proj feature">
+          <div class="sketch-grid">
+            <figure><span class="status sketch">By Hand</span><img src="images/sketch-1.jpg" alt="Cafeteria site plan at 1:200" loading="lazy"><figcaption>Site plan · 1:200</figcaption></figure>
+            <figure><img src="images/sketch-2.jpg" alt="Ground floor plan" loading="lazy"><figcaption>Ground floor plan</figcaption></figure>
+            <figure><img src="images/sketch-3.jpg" alt="Measured section A–A" loading="lazy"><figcaption>Section A–A</figcaption></figure>
+            <figure><img src="images/sketch-4.jpg" alt="Toilet construction details" loading="lazy"><figcaption>Construction details · 1:2–1:20</figcaption></figure>
+            <figure><img src="images/sketch-5.jpg" alt="Southern and northern elevations" loading="lazy"><figcaption>Elevations · colour</figcaption></figure>
+            <figure><img src="images/sketch-6.jpg" alt="Colour-pencil perspective" loading="lazy"><figcaption>Perspective · colour pencil</figcaption></figure>
+          </div>
+          <div class="body">
+            <div class="meta"><span>Freehand</span><span>·</span><span>Pencil &amp; ink</span></div>
+            <h3>Hand Sketches</h3>
+            <p>A complete hand-drafted set for the cafeteria — site plan at 1:200, floor plans, measured sections, construction details down to 1:2, coloured elevations and a colour-pencil perspective. Where every project begins: pencil, ink and a steady hand, before any software opens.</p>
+          </div>
+        </article>
+
+      </div>
     </div>
-    <div class="clist rv">
-      <a href="mailto:mnick123456@gmail.com"><span class="lab">Email</span><span class="val">mnick123456@gmail.com</span></a>
-      <a href="tel:+255658677142"><span class="lab">Phone</span><span class="val">+255 658 677 142</span></a>
-      <div class="r"><span class="lab">Location</span><span class="val">Dar es Salaam, TZ</span></div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="block" id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">What I do</span>
+          <h2 class="section-title">From first sketch<br>to working drawings</h2>
+        </div>
+        <p class="lead">Commercial, residential or interior — full service across every stage of the design.</p>
+      </div>
+      <div class="svc-grid">
+        <div class="svc">
+          <div class="ic">01</div>
+          <h4>Concept &amp; planning</h4>
+          <p>By hand first — site plans, sections and studies test the idea before any software opens, so the bones are right before the polish begins.</p>
+        </div>
+        <div class="svc">
+          <div class="ic">02</div>
+          <h4>3D visualization</h4>
+          <p>You see and walk the finished space before a wall goes up — built digitally in Lumion, D5 and V-Ray so there are no surprises on site.</p>
+        </div>
+        <div class="svc">
+          <div class="ic">03</div>
+          <h4>Working drawings</h4>
+          <p>A full, buildable package modelled in Revit and ArchiCAD that a contractor can price and construct from — every stage covered.</p>
+        </div>
+        <div class="svc">
+          <div class="ic">04</div>
+          <h4>Interior concept</h4>
+          <p>Colour, texture and material chosen for the mood of the room — a space that feels considered, not decorated.</p>
+        </div>
+        <div class="svc">
+          <div class="ic">05</div>
+          <h4>Residential design</h4>
+          <p>From a single home to 350+ unit housing schemes — density planned so it never costs the resident their light or privacy.</p>
+        </div>
+        <div class="svc">
+          <div class="ic">06</div>
+          <h4>Visual &amp; graphic work</h4>
+          <p>Boards, diagrams and presentation graphics in the Adobe suite — the idea communicated as clearly as it's designed.</p>
+        </div>
+      </div>
     </div>
+  </section>
+
+  <!-- REACH / GLOBE -->
+  <section class="block" id="reach">
+    <div class="wrap">
+      <div class="reach-grid">
+        <div>
+          <span class="eyebrow">Reach</span>
+          <h2 class="section-title">From Dar es Salaam,<br>working worldwide</h2>
+          <p class="lead" style="margin-top:18px">Commissions and collaborations across hospitality, residential and interiors — on site in Tanzania, remote everywhere else.</p>
+          <div class="reach-stats">
+            <div><div class="rk">Home base</div><div class="rv">Dar es Salaam</div></div>
+            <div><div class="rk">Coordinates</div><div class="rv">6.8°S · 39.2°E</div></div>
+            <div><div class="rk">Availability</div><div class="rv">Open · 2026</div></div>
+          </div>
+          <div class="drag-hint">→ drag to spin the globe</div>
+        </div>
+        <div class="globe-wrap">
+          <canvas id="globe" width="960" height="960"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="block" id="contact" style="border-bottom:none">
+    <div class="wrap">
+      <div class="contact-grid">
+        <div class="contact-copy">
+          <span class="eyebrow">Contact</span>
+          <h2 class="section-title">Let's design<br>your space</h2>
+          <p class="lead">Commercial, residential or interior — tell me about the site and the people who'll live or work in it, and I'll tell you how I'd approach it. Open to commissions, collaborations and internships.</p>
+          <div class="contact-list">
+            <a href="mailto:mnick123456@gmail.com"><span class="k">@</span>mnick123456@gmail.com</a>
+            <a href="tel:+255658677142"><span class="k">☎</span>+255 658 677 142</a>
+            <a href="https://wa.me/255658677142" target="_blank" rel="noopener"><span class="k">W</span>WhatsApp · +255 658 677 142</a>
+            <a href="#"><span class="k">⌖</span>Dar es Salaam, Tanzania</a>
+            <a href="Niko-Mtema-CV.pdf" download><span class="k">↓</span>Download CV (PDF)</a>
+          </div>
+        </div>
+
+        <form action="https://formsubmit.co/mnick123456@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="New enquiry from your portfolio">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="true">
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+          <div class="field">
+            <label for="name">Your name</label>
+            <input id="name" name="name" type="text" placeholder="Asha Mushi" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="asha@company.com" required>
+          </div>
+          <div class="field">
+            <label for="type">Project type</label>
+            <select id="type" name="type">
+              <option>Residential</option>
+              <option>Commercial</option>
+              <option>Interior</option>
+              <option>Hospitality</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="msg">The site and the people</label>
+            <textarea id="msg" name="message" placeholder="Tell me about the site, the brief, and who it's for." required></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit">Send enquiry →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="brand">NIKO<b>·</b>MTEMA <small>Arkitekti Studios</small></div>
+    <div>Architectural Designer — commercial and residential design, Dar es Salaam.</div>
+    <div style="margin-top:8px">© <span id="yr"></span> Niko J Mtema. All rights reserved.</div>
   </div>
-</div></section>
-
-<footer><div class="in"><div>&copy; 2026 <b>Niko J Mtema</b> — Architectural Designer</div><div>Concept · Design · Realization</div></div></footer>
-
-<div class="lb" id="lb" role="dialog" aria-modal="true">
-  <div class="lb-top"><div class="t"><small id="lbCat"></small><span id="lbTitle"></span></div>
-    <div class="right"><span class="lb-count" id="lbCount"></span><button class="lb-close" id="lbClose">&times;</button></div></div>
-  <div class="lb-stage"><button class="lb-nav lb-prev" id="lbPrev">&#8249;</button><img class="lb-img" id="lbImg" alt=""><button class="lb-nav lb-next" id="lbNext">&#8250;</button></div>
-  <div class="lb-cap" id="lbCap"></div><div class="lb-film" id="lbFilm"></div>
-</div>
+</footer>
 
 <script>
-var IMG={"hotel_entrance": "images/hotel_entrance.jpg", "hotel_hero": "images/hotel_hero.jpg", "hotel_pool_day": "images/hotel_pool_day.jpg", "hotel_suite1": "images/hotel_suite1.jpg", "hotel_suite2": "images/hotel_suite2.jpg", "housing_main": "images/housing_main.jpg", "int_bed": "images/int_bed.jpg", "int_bedroom_sun": "images/int_bedroom_sun.jpg", "int_dining_rose": "images/int_dining_rose.jpg", "int_living1": "images/int_living1.jpg", "int_living2": "images/int_living2.jpg", "int_lounge_eames": "images/int_lounge_eames.jpg", "lux_bath1": "images/lux_bath1.jpg", "lux_bath2": "images/lux_bath2.jpg", "lux_cinema1": "images/lux_cinema1.jpg", "lux_cinema2": "images/lux_cinema2.jpg", "lux_dining": "images/lux_dining.jpg", "lux_guestbed1": "images/lux_guestbed1.jpg", "lux_guestbed2": "images/lux_guestbed2.jpg", "lux_lounge": "images/lux_lounge.jpg", "lux_master": "images/lux_master.jpg", "lux_stair": "images/lux_stair.jpg", "res_day": "images/res_day.jpg", "res_extra": "images/res_extra.jpg", "res_night": "images/res_night.jpg", "sketch_cafeteria": "images/sketch_cafeteria.jpg", "sketch_perspective": "images/sketch_perspective.jpg", "sketch_section": "images/sketch_section.jpg", "hero_library": "images/hero_library.jpg"}, PROJECTS=[{"id": "hotel", "num": "01", "cat": "Hospitality \u00b7 Commercial", "title": "5-Star Hotel", "tagline": "Duality \u2014 a grounded podium, two rising towers.", "desc": "Conceived around the idea of duality, where opposing elements coexist in harmony. A grounded stone-clad podium anchors the building to its context, while two refined towers rise above in glass and concrete, expressing lightness and precision. Clean geometric forms are softened by subtle organic curves, creating a dialogue between structure and fluidity.", "meta": [["Type", "Hotel + Spa"], ["Role", "Concept \u2192 Detail"], ["Tools", "Revit \u00b7 Lumion"]], "cover": "hotel_hero", "gallery": ["hotel_hero", "hotel_pool_day", "hotel_suite1", "hotel_suite2"], "captions": ["Dusk approach \u2014 twin-tower facade", "Daytime aerial \u2014 resort pools & podium", "Guest suite \u2014 sunset palm view", "Guest suite \u2014 living area"]}, {"id": "housing", "num": "02", "cat": "Residential \u00b7 Community", "title": "Affordable Housing", "tagline": "350+ units, colour as wayfinding.", "desc": "Over 350 residential units within a thoughtfully planned, community-oriented environment. A colour-coded window framing system distinguishes building blocks and unit clusters through vibrant accent colours. This enhances wayfinding, simplifies unit identification for residents and visitors, and creates a lively architectural character without increasing construction complexity.", "meta": [["Scale", "350+ units"], ["Idea", "Colour wayfinding"], ["Tools", "Revit \u00b7 D5"]], "cover": "housing_main", "gallery": ["housing_main"], "captions": ["Aerial view \u2014 colour-coded blocks"]}, {"id": "residences", "num": "03", "cat": "Residential \u00b7 Private", "title": "Residences", "tagline": "A private home, day to night.", "desc": "A private single-family residence exploring massing, daylight and the threshold between interior and garden. Tuned to a warm tropical climate and everyday family life \u2014 a sheltered carport, a generous entry porch, and full-height glazing that opens living spaces to the landscaped grounds.", "meta": [["Type", "Private home"], ["Focus", "Massing \u00b7 Light"], ["Tools", "ArchiCAD \u00b7 Vray"]], "cover": "res_day", "gallery": ["res_day", "res_night"], "captions": ["Front elevation \u2014 daytime", "Same elevation \u2014 night, interior glow"]}, {"id": "interiors", "num": "04", "cat": "Interior Design \u00b7 Apartment", "title": "Interiors", "tagline": "Colour-led rooms, lived-in warmth.", "desc": "A residential interior where colour and texture carry the mood \u2014 a sage modular sofa against warm peach walls, bold accent cushions, soft natural light and tactile rugs. The same psychology that shapes a building, carried indoors to the scale of touch and everyday living.", "meta": [["Scope", "Living \u00b7 Bedroom"], ["Focus", "Colour & texture"], ["Tools", "3ds Max \u00b7 Vray"]], "cover": "int_living1", "gallery": ["int_living1", "int_living2", "int_bed", "int_lounge_eames", "int_dining_rose", "int_bedroom_sun"], "captions": ["Living room \u2014 sage & accent cushions", "Media wall & lounge", "Master bedroom", "Lounge \u2014 Eames chair & glass-block wall", "Dining room \u2014 warm rose palette", "Bedroom \u2014 teal & ochre with sun artwork"]}, {"id": "luxury", "num": "05", "cat": "Interior Design \u00b7 Luxury Residence", "title": "Luxury Residence Interior", "tagline": "A full home \u2014 dining to private cinema.", "desc": "A complete luxury residence interior package developed room by room. Double-height living and dining spaces are anchored by marble-and-timber feature walls, concealed cove lighting and a sculptural floating staircase. Private quarters \u2014 master suite, guest rooms and spa-like bathrooms \u2014 give way to a fibre-optic starlight home cinema. Material, light and proportion are tuned across every space for a single, coherent atmosphere.", "meta": [["Scope", "Whole-home, 7 spaces"], ["Focus", "Material & light"], ["Tools", "3ds Max \u00b7 Corona"]], "cover": "lux_lounge", "gallery": ["lux_lounge", "lux_dining", "lux_stair", "lux_master", "lux_guestbed1", "lux_guestbed2", "lux_bath1", "lux_bath2", "lux_cinema1", "lux_cinema2"], "captions": ["Double-height lounge & feature wall", "Dining hall & floating stair", "Staircase detail \u2014 linear lighting", "Master suite \u2014 wardrobe wall & sunset view", "Guest bedroom \u2014 backlit headboard", "Guest bedroom \u2014 wider view", "Guest bathroom \u2014 tub & shower", "En-suite \u2014 full-height windows", "Home cinema \u2014 starlight ceiling", "Cinema \u2014 tiered lounge seating"]}, {"id": "sketches", "num": "06", "cat": "Drawing \u00b7 Hand Drafting", "title": "Hand Sketches", "tagline": "Drafted entirely by hand.", "desc": "Where every project begins \u2014 and proof the thinking holds before any software opens. A fully hand-drafted cafeteria site plan at 1:200, complete with landscape, parking and assembly zoning; a colour-pencil exterior perspective; and measured building sections. Pencil, ink and a steady hand.", "meta": [["Medium", "Pencil \u00b7 Ink \u00b7 Colour"], ["Work", "Site plan \u00b7 Sections \u00b7 Perspective"], ["Stage", "Pre-concept"]], "cover": "sketch_cafeteria", "gallery": ["sketch_cafeteria", "sketch_perspective", "sketch_section"], "captions": ["Cafeteria site plan \u2014 hand-drafted, 1:200", "Exterior perspective \u2014 colour pencil (2022)", "Building sections & details"]}], LOGOS={"revit": "images/logos/revit.png", "archicad": "images/logos/archicad.png", "3dsmax": "images/logos/3dsmax.png", "vray": "images/logos/vray.png", "lumion": "images/logos/lumion.png", "d5": "images/logos/d5.png", "photoshop": "images/logos/photoshop.png", "illustrator": "images/logos/illustrator.png", "indesign": "images/logos/indesign.png"};
-document.querySelectorAll('img[src^="IMGKEY:"]').forEach(function(im){var k=im.getAttribute('src').slice(7);if(IMG[k])im.src=IMG[k];});
-document.querySelectorAll('img[src^="LOGOKEY:"]').forEach(function(im){var k=im.getAttribute('src').slice(8);if(LOGOS[k])im.src=LOGOS[k];});
-var tg=document.getElementById('tg'),lk=document.getElementById('lk');
-tg.addEventListener('click',function(){lk.classList.toggle('open')});
-lk.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){lk.classList.remove('open')})});
-var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
-document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
-var lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg'),lbCap=document.getElementById('lbCap'),lbTitle=document.getElementById('lbTitle'),lbCat=document.getElementById('lbCat'),lbCount=document.getElementById('lbCount'),lbFilm=document.getElementById('lbFilm');
-var cur=null,idx=0;
-function projById(id){return PROJECTS.filter(function(p){return p.id===id})[0]}
-function show(i){idx=(i+cur.gallery.length)%cur.gallery.length;var key=cur.gallery[idx];lbImg.src=IMG[key];lbCap.innerHTML='<b>'+(idx+1)+'.</b> '+(cur.captions[idx]||'');lbCount.textContent=(idx+1)+' / '+cur.gallery.length;Array.prototype.forEach.call(lbFilm.children,function(th,n){th.classList.toggle('active',n===idx)});var a=lbFilm.children[idx];if(a)a.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});}
-function openProj(id){cur=projById(id);if(!cur)return;lbTitle.textContent=cur.title;lbCat.textContent=cur.cat;lbFilm.innerHTML='';cur.gallery.forEach(function(key,n){var t=document.createElement('img');t.src=IMG[key];t.addEventListener('click',function(){show(n)});lbFilm.appendChild(t);});show(0);lb.classList.add('open');document.body.style.overflow='hidden';}
-function closeLb(){lb.classList.remove('open');document.body.style.overflow='';cur=null}
-document.querySelectorAll('.prow').forEach(function(el){el.addEventListener('click',function(){openProj(el.getAttribute('data-proj'))});});
-document.getElementById('lbClose').addEventListener('click',closeLb);
-document.getElementById('lbPrev').addEventListener('click',function(){show(idx-1)});
-document.getElementById('lbNext').addEventListener('click',function(){show(idx+1)});
-lb.addEventListener('click',function(e){if(e.target===lb)closeLb()});
-document.addEventListener('keydown',function(e){if(!lb.classList.contains('open'))return;if(e.key==='Escape')closeLb();else if(e.key==='ArrowLeft')show(idx-1);else if(e.key==='ArrowRight')show(idx+1);});
-var sx=0;lb.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});
-lb.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50){show(dx<0?idx+1:idx-1)}},{passive:true});
-// globe (cobe) — drag to spin, marker on Dar es Salaam
-(async function(){
-  var canvas=document.getElementById('globe'); if(!canvas) return;
-  var createGlobe;
-  try{var mod=await import('https://cdn.jsdelivr.net/npm/cobe@0.6.3/+esm');createGlobe=mod.default;}
-  catch(e){console.warn('Globe failed to load',e);return;}
-  var phi=4.9, width=canvas.offsetWidth||480, pInteract=null, pMove=0;
-  window.addEventListener('resize',function(){width=canvas.offsetWidth||480;});
-  canvas.onpointerdown=function(e){pInteract=e.clientX-pMove;canvas.style.cursor='grabbing';};
-  var release=function(){pInteract=null;canvas.style.cursor='grab';};
-  canvas.onpointerup=release;canvas.onpointerout=release;
-  canvas.onpointermove=function(e){if(pInteract!==null)pMove=e.clientX-pInteract;};
-  createGlobe(canvas,{
-    devicePixelRatio:2,width:width*2,height:width*2,phi:0,theta:0.22,dark:1,diffuse:1.25,
-    mapSamples:18000,mapBrightness:5.2,baseColor:[0.62,0.56,0.48],markerColor:[0.71,0.28,0.12],
-    glowColor:[0.13,0.11,0.09],markers:[{location:[-6.7924,39.2083],size:0.12}],
-    onRender:function(state){if(pInteract===null)phi+=0.0045;state.phi=phi+pMove/200;state.width=width*2;state.height=width*2;}
-  });
-})();
+  document.getElementById('yr').textContent = new Date().getFullYear();
 </script>
-</body></html>
+<script type="module">
+  // Draggable globe (cobe) — recreated from the original portfolio, marked at Dar es Salaam
+  (async () => {
+    const canvas = document.getElementById('globe');
+    if (!canvas) return;
+    let createGlobe;
+    try {
+      const mod = await import('https://cdn.jsdelivr.net/npm/cobe@0.6.3/+esm');
+      createGlobe = mod.default;
+    } catch (e) { console.warn('Globe failed to load', e); return; }
+
+    let phi = 4.9;                 // start roughly facing Africa
+    let width = canvas.offsetWidth || 480;
+    let pointerInteracting = null;
+    let pointerMovement = 0;
+
+    const onResize = () => { width = canvas.offsetWidth || 480; };
+    window.addEventListener('resize', onResize);
+
+    canvas.onpointerdown = (e) => {
+      pointerInteracting = e.clientX - pointerMovement;
+      canvas.style.cursor = 'grabbing';
+    };
+    const release = () => { pointerInteracting = null; canvas.style.cursor = 'grab'; };
+    canvas.onpointerup = release;
+    canvas.onpointerout = release;
+    canvas.onpointermove = (e) => {
+      if (pointerInteracting !== null) pointerMovement = e.clientX - pointerInteracting;
+    };
+
+    createGlobe(canvas, {
+      devicePixelRatio: 2,
+      width: width * 2,
+      height: width * 2,
+      phi: 0,
+      theta: 0.22,
+      dark: 1,
+      diffuse: 1.25,
+      mapSamples: 18000,
+      mapBrightness: 5.2,
+      baseColor: [0.62, 0.56, 0.48],
+      markerColor: [0.71, 0.28, 0.12],
+      glowColor: [0.13, 0.11, 0.09],
+      markers: [{ location: [-6.7924, 39.2083], size: 0.12 }],
+      onRender: (state) => {
+        if (pointerInteracting === null) phi += 0.0045;
+        state.phi = phi + pointerMovement / 200;
+        state.width = width * 2;
+        state.height = width * 2;
+      },
+    });
+  })();
+</script>
+</body>
+</html>
