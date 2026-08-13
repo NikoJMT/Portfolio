@@ -1,58 +1,69 @@
 # Niko J Mtema — Portfolio
 
-Single-page architectural design portfolio. Static HTML/CSS/JS — no build step.
+Two ways to view the same work, no build step (static HTML/CSS/JS):
+
+- **`index.html`** — an interactive 3D "mini world". Fly between project buildings on an
+  island, click one to open its galleries, and step into interiors.
+- **`portfolio.html`** — the classic scrolling portfolio (about, skills, projects, contact).
+
+The two pages link to each other, and both link to the CV.
 
 ## Repo structure
 
 ```
 your-repo/
-├── index.html              ← the site (GitHub Pages serves this automatically)
-├── Niko-Mtema-CV.pdf       ← your CV (optional but the "Download CV" buttons link to it)
-└── images/
-    ├── hero.jpg            civic / library building (hero, top right)
-    ├── hotel-1.jpg         5-star hotel — dusk twin towers (gallery lead)
-    ├── hotel-2.jpg         5-star hotel — pool aerial
-    ├── hotel-3.jpg         5-star hotel — living room
-    ├── hotel-4.jpg         5-star hotel — bedroom suite
-    ├── res-1.jpg           residential house — night
-    ├── res-2.jpg           residential house — daylight
-    ├── housing-1.jpg       affordable housing — aerial sunset (lead)
-    ├── housing-2.jpg       affordable housing — street corner
-    ├── housing-3.jpg       affordable housing — colour window framing close-up
-    ├── interior-1.jpg      interior — living room w/ TV
-    ├── interior-2.jpg      interior — dining room
-    ├── interior-3.jpg      interior — dark Eames lounge
-    ├── interior-4.jpg      interior — bright living room (gallery lead)
-    ├── interior-5.jpg      interior — bedroom, teal + orange
-    ├── marble-1.jpg        marble — bathroom w/ tub
-    ├── marble-2.jpg        marble — media wall
-    ├── marble-3.jpg        marble — double-height dining + staircase (lead)
-    ├── marble-4.jpg        marble — warm-wood bedroom
-    ├── marble-5.jpg        marble — home cinema
-    ├── sketch-1.jpg        cafeteria site plan 1:200      (already placed)
-    ├── sketch-2.jpg        ground floor plan              (already placed)
-    ├── sketch-3.jpg        section A–A                    (already placed)
-    ├── sketch-4.jpg        construction details           (already placed)
-    ├── sketch-5.jpg        coloured elevations            (already placed)
-    └── sketch-6.jpg        colour-pencil perspective      (already placed)
+├── index.html              ← 3D world  (GitHub Pages serves this automatically)
+├── portfolio.html          ← classic scrolling portfolio
+├── Niko-Mtema-CV.pdf        ← CV (the download buttons link to it)
+├── images/                  ← all project images (26 files)
+└── models/                  ← OPTIONAL: drop custom .glb 3D models here (see below)
 ```
-
-The 6 `sketch-*.jpg` files are already in `images/`. You still need to add the 20
-render images above (save them from chat with these exact lowercase names).
 
 ## Deploy to GitHub Pages
 
-1. Create a new repository on GitHub (e.g. `portfolio`).
-2. Upload `index.html`, the `images/` folder, and your CV.
-3. Repo **Settings → Pages → Build and deployment**: Source = *Deploy from a branch*,
-   Branch = `main`, folder = `/ (root)`. Save.
-4. Wait ~1 minute. Your site is live at `https://<username>.github.io/portfolio/`.
+1. Upload `index.html`, `portfolio.html`, `Niko-Mtema-CV.pdf`, and the `images/` folder.
+2. Settings → Pages → Source = *Deploy from a branch* → Branch `main` → folder `/ (root)`.
+3. ~1 minute later the 3D world is live at `https://<username>.github.io/<repo>/`.
+
+## Adding a NEW project to the 3D world
+
+Everything is driven by one config list near the top of the `<script type="module">`
+block in `index.html` — look for `const PROJECTS = [ … ]`. Copy a block and fill it in:
+
+```js
+{
+  id:'newproject',              // unique short id
+  title:'New Project',
+  sector:'Residential',         // small label above the title
+  status:'Studio Project',
+  angle:15,                     // where it sits on the island ring (0-360 degrees)
+  type:'pavilion',              // massing style if you have no 3D model:
+                                //   'tower' | 'blocks' | 'house' | 'pavilion' | 'plate'
+  color:0xd8cfc1,               // main building colour
+  hero:'images/new-1.jpg',      // the photo shown on the project's billboard sign
+  exterior:['images/new-1.jpg','images/new-2.jpg'],
+  interior:['images/new-int-1.jpg'],   // shown by the "Enter interior" button ([] if none)
+  sitePlan:'images/new-plan.jpg',      // optional — adds a "Site plan" button
+  model:'models/new.glb',              // optional — loads YOUR 3D model instead of the massing
+  blurb:'One paragraph describing the project.'
+}
+```
+
+Camera framing, the floating label, the photo billboard, hover and click are all
+generated automatically. Drop the referenced images in `images/` (and any `.glb` in
+`models/`) and it appears in the world — no other code changes needed.
+
+### Custom 3D models (optional)
+If you export a project as a small **glTF `.glb`**, set its path in `model:` and it
+replaces the auto-generated massing on that plot. Keep models low-poly and under a few MB
+so the page stays fast. If a model fails to load, the world falls back to the procedural
+massing automatically.
 
 ## Notes
 
-- The spinning globe loads the `cobe` library and the fonts from CDNs over HTTPS —
-  works on GitHub Pages out of the box (needs an internet connection to render).
-- The contact form uses a `mailto:` action. For reliable delivery on a live site,
-  consider routing it through [Formspree](https://formspree.io) or Netlify Forms.
-- All image paths are relative, so the site also works if you open `index.html`
-  locally once the `images/` folder is populated.
+- The 3D world loads Three.js and the fonts from CDNs over HTTPS — works on GitHub Pages,
+  needs an internet connection. If a device can't run WebGL, it shows a link to
+  `portfolio.html` instead.
+- The contact form (on `portfolio.html`) posts to FormSubmit.co → `mnick123456@gmail.com`.
+  Submit it once on the live site and click the confirmation email to activate delivery.
+- Images are compressed for fast loading. Keep new images web-sized (≈1600px, < ~500 KB).

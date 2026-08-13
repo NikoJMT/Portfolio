@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Niko J Mtema — Architectural Designer · Arkitekti Studios</title>
+<meta name="description" content="Niko J Mtema — architectural designer, Dar es Salaam. Commercial and residential design. Final-year Bachelor of Architecture, Ardhi University. Spaces built on contrast.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Architects+Daughter&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f2439; --panel:#16314d; --panel-2:#1c3a5a; --line:#2c4e72;
+    --ink:#e8f1f8; --muted:#a9c3d9; --faint:#7d9cb5;
+    --coral:#bf4420; --coral-2:#e06a3f;
+    --display:'Chakra Petch',sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',monospace; --hand:'Architects Daughter',cursive;
+    --ease:cubic-bezier(.23,1,.32,1);
+    --maxw:1180px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;
+    background-image:
+      linear-gradient(rgba(146,190,228,.05) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(146,190,228,.05) 1px,transparent 1px),
+      linear-gradient(rgba(146,190,228,.08) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(146,190,228,.08) 1px,transparent 1px);
+    background-size:26px 26px,26px 26px,130px 130px,130px 130px}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  h1,h2,h3{text-wrap:balance}
+  :focus-visible{outline:2px solid var(--coral-2);outline-offset:2px}
+  ::selection{background:rgba(224,106,63,.35)}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--coral-2);font-weight:500}
+  .section-title{font-family:var(--display);font-weight:700;font-size:clamp(28px,4vw,46px);letter-spacing:-.01em;line-height:1.04;text-transform:uppercase}
+  .lead{color:var(--muted);font-size:18px;max-width:62ch}
+
+  /* NAV */
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(13,31,50,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{font-family:var(--display);font-weight:700;letter-spacing:.01em;font-size:17px;display:flex;align-items:center;gap:8px;text-transform:uppercase}
+  .brand b{color:var(--coral-2);font-weight:700}
+  .brand small{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+  .nav-links{display:flex;gap:26px;align-items:center}
+  .nav-links a{color:var(--muted);font-size:14px;font-weight:500;transition:color .2s var(--ease)}
+  .nav-links a:hover{color:var(--ink)}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:600;font-size:14px;letter-spacing:.03em;text-transform:uppercase;padding:10px 18px;border-radius:6px;transition:background .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease),transform .15s var(--ease);cursor:pointer;border:1px solid transparent}
+  .btn:active{transform:scale(.97)}
+  .btn-primary{background:var(--coral);color:#fff}
+  .btn-primary:hover{background:#d4562c}
+  .btn-ghost{border-color:var(--line);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--coral-2);color:#fff}
+  .nav-cta{display:flex;gap:10px;align-items:center}
+
+  /* HERO */
+  .hero{position:relative;padding:84px 0 64px;border-bottom:1px solid var(--line);overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+  .hero h1{font-family:var(--display);font-weight:700;font-size:clamp(44px,7.5vw,92px);line-height:.96;letter-spacing:-.02em}
+  .hero h1 .accent{color:var(--coral-2)}
+  .tagline{margin-top:22px;font-family:var(--display);font-weight:500;font-size:clamp(20px,2.4vw,28px);letter-spacing:-.01em}
+  .tagline-gloss{margin-top:10px;color:var(--muted);font-size:17px;max-width:50ch}
+  .hero-anchor{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
+  .chip{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12px;font-weight:400;color:var(--ink);background:var(--panel);border:1px solid var(--line);padding:8px 13px;border-radius:6px}
+  .chip .dot{width:7px;height:7px;border-radius:50%;background:var(--coral-2)}
+  .hero-cta{margin-top:30px;display:flex;flex-wrap:wrap;gap:12px}
+  .hero-art{position:relative;aspect-ratio:4/5;border-radius:10px;background:linear-gradient(160deg,#1c3a5a,#122c47);background-size:cover;background-position:center;border:1px solid var(--line);overflow:hidden;display:flex;align-items:flex-end;padding:18px}
+  .hero-art::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(6,17,30,.74),rgba(6,17,30,0) 45%)}
+  .hero-art .cap{position:relative;z-index:1;font-family:var(--mono);font-size:12px;color:#e8f1f8;font-weight:400}
+
+  /* STATS strip */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:54px;background:rgba(13,31,50,.55)}
+  .stat{padding:20px 22px;border-right:1px solid var(--line)}
+  .stat:last-child{border-right:none}
+  .stat .num{font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:0}
+  .stat .lbl{font-family:var(--mono);color:var(--muted);font-size:12px;margin-top:4px}
+
+  /* SECTION */
+  section.block{padding:84px 0;border-bottom:1px solid var(--line)}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px}
+  .about-anchor{font-family:var(--display);font-weight:500;font-size:22px;line-height:1.35;letter-spacing:-.01em}
+  .about-anchor b{color:var(--coral-2);font-weight:600}
+  .about-body p{color:var(--muted);font-size:17px;margin-bottom:16px;max-width:60ch}
+  .about-body p strong{color:var(--ink);font-weight:600}
+
+  /* EDUCATION timeline */
+  .edu{margin-top:30px;border-left:2px solid var(--line);padding-left:22px;display:flex;flex-direction:column;gap:18px}
+  .edu .row .yr{font-family:var(--mono);font-weight:500;font-size:12px;color:var(--coral-2);letter-spacing:.08em}
+  .edu .row .ti{font-size:15px;color:var(--ink);margin-top:2px}
+  .edu .row .su{font-size:14px;color:var(--muted)}
+
+  /* SKILLS */
+  .skill-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .skill-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:22px}
+  .skill-card h4{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral-2);margin-bottom:14px}
+  .skill-tags{display:flex;flex-wrap:wrap;gap:8px}
+  .skill-tags span{font-family:var(--mono);font-size:12px;color:var(--ink);background:var(--panel-2);border:1px solid var(--line);padding:6px 11px;border-radius:6px}
+
+  /* PROJECTS */
+  .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  .proj{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;transition:border-color .25s var(--ease),transform .25s var(--ease);display:flex;flex-direction:column}
+  .proj:hover{border-color:var(--coral-2);transform:translateY(-3px)}
+  .proj .thumb{aspect-ratio:16/10;background:linear-gradient(150deg,#173453,#0e2038);position:relative;display:flex;align-items:center;justify-content:center;color:var(--faint);font-size:13px;text-align:center;padding:20px;border-bottom:1px solid var(--line)}
+  .proj.feature{grid-column:span 2}
+  .proj.feature .thumb{aspect-ratio:21/9}
+  .gallery{display:grid;grid-template-columns:2.2fr 1fr;gap:6px;background:var(--line);border-bottom:1px solid var(--line);height:clamp(280px,34vw,400px)}
+  .gallery .g-main{position:relative;background:#0c2036 center/cover no-repeat;display:flex;align-items:flex-start}
+  .gallery .g-main .status{position:absolute;top:14px;left:14px}
+  .gallery .g-side{display:grid;grid-auto-rows:1fr;gap:6px}
+  .gallery .g-side>div{background:#0c2036 center/cover no-repeat}
+  .thumb-img{aspect-ratio:16/10;background:#0c2036 center/cover no-repeat;position:relative;border-bottom:1px solid var(--line)}
+  .thumb-img .status{position:absolute;top:14px;left:14px}
+  .thumb-strip{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:4px;padding:4px;background:var(--line)}
+  .thumb-strip>div{aspect-ratio:16/10;background:#0c2036 center/cover no-repeat;border-radius:6px}
+  .sketch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--line);border-bottom:1px solid var(--line)}
+  .sketch-grid figure{position:relative;margin:0;background:#f4efe6;aspect-ratio:4/3;overflow:hidden}
+  .sketch-grid img{width:100%;height:100%;object-fit:contain;padding:6px;display:block}
+  .sketch-grid figcaption{position:absolute;bottom:0;left:0;right:0;font-family:var(--hand);font-size:13px;color:#33475a;background:rgba(244,239,230,.92);padding:4px 9px}
+  .sketch-grid .status{position:absolute;top:12px;left:12px;z-index:1}
+  .status{position:absolute;top:14px;left:14px;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:3px;border:1px solid;background:rgba(15,36,57,.72);color:#f0a284;border-color:rgba(224,106,63,.55)}
+  .status.sketch{background:rgba(15,36,57,.72);color:#bcd4e8;border-color:rgba(146,190,228,.4)}
+  .proj .body{padding:22px;display:flex;flex-direction:column;gap:12px;flex:1}
+  .proj .meta{display:flex;gap:8px;align-items:center;font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;flex-wrap:wrap}
+  .proj h3{font-family:var(--display);font-weight:700;font-size:23px;letter-spacing:0;line-height:1.1;text-transform:uppercase}
+  .proj p{color:var(--muted);font-size:15px}
+  .process{display:flex;gap:8px;margin-top:auto;flex-wrap:wrap}
+  .process .step{flex:1;min-width:90px;background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+  .process .step .k{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--coral-2);font-weight:500}
+  .process .step .v{font-size:13px;color:var(--ink);margin-top:3px;line-height:1.35}
+
+  /* SERVICES */
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .svc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:24px}
+  .svc .ic{width:42px;height:42px;border-radius:6px;background:var(--panel-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--coral-2);font-family:var(--mono);font-weight:500;margin-bottom:14px}
+  .svc h4{font-family:var(--display);font-weight:600;font-size:18px;margin-bottom:6px}
+  .svc p{color:var(--muted);font-size:15px}
+
+  /* REACH / GLOBE */
+  .reach-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .reach-stats{display:flex;gap:40px;margin-top:34px;flex-wrap:wrap}
+  .reach-stats .rk{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .reach-stats .rv{font-family:var(--display);font-weight:700;font-size:17px;color:var(--ink);margin-top:6px;text-transform:uppercase}
+  .drag-hint{display:inline-block;margin-top:26px;font-family:var(--hand);font-size:15px;color:var(--coral-2)}
+  .globe-wrap{display:flex;justify-content:center;align-items:center}
+  #globe{width:480px;height:480px;max-width:100%;aspect-ratio:1;cursor:grab;contain:layout paint size}
+
+  /* CONTACT */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+  .contact-copy .lead{margin-top:18px}
+  .contact-list{margin-top:26px;display:flex;flex-direction:column;gap:14px}
+  .contact-list a{display:flex;align-items:center;gap:12px;color:var(--ink);font-size:16px;font-weight:500}
+  .contact-list a .k{width:34px;height:34px;border-radius:6px;background:var(--panel-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--coral-2);font-size:13px;font-family:var(--mono);font-weight:500}
+  .contact-list a:hover{color:var(--coral-2)}
+  form{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:26px}
+  .field{margin-bottom:16px}
+  label{display:block;font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:7px;font-weight:400}
+  input,textarea,select{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:12px 14px;color:var(--ink);font-family:var(--body);font-size:15px;transition:border-color .2s var(--ease)}
+  ::placeholder{color:var(--faint);opacity:1}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--coral-2)}
+  textarea{resize:vertical;min-height:110px}
+  form .btn-primary{width:100%;justify-content:center;margin-top:6px}
+
+  footer{padding:42px 0;text-align:center;color:var(--faint);font-size:14px}
+  footer .brand{justify-content:center;margin-bottom:10px}
+
+  @media(max-width:880px){
+    .hero-grid,.about-grid,.contact-grid,.reach-grid{grid-template-columns:1fr;gap:32px}
+    .hero-art{aspect-ratio:16/11}
+    .skill-cols,.svc-grid{grid-template-columns:1fr}
+    .proj-grid{grid-template-columns:1fr}
+    .proj.feature{grid-column:span 1}
+    .sketch-grid{grid-template-columns:repeat(2,1fr)}
+    .stats{grid-template-columns:1fr 1fr}
+    .stat:nth-child(2){border-right:none}
+    .stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid var(--line)}
+    .nav-links{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">NIKO<b>·</b>MTEMA <small>Arkitekti Studios</small></a>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#work">Work</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="index.html">◎ 3D World</a>
+      <a class="btn btn-ghost" href="Niko-Mtema-CV.pdf" download>↓ CV</a>
+      <a class="btn btn-primary" href="#contact">Let's talk</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">Architectural Designer · Dar es Salaam</span>
+          <h1>NIKO&nbsp;J<br><span class="accent">MTEMA</span></h1>
+          <p class="tagline">Designer of spaces built on contrast.</p>
+          <p class="tagline-gloss">Commercial and residential design rooted in duality — opposing elements brought into harmony, from grounded stone to rising glass.</p>
+
+          <div class="hero-anchor">
+            <span class="chip"><span class="dot"></span>Dar es Salaam, Tanzania</span>
+            <span class="chip"><span class="dot"></span>B.Arch — Ardhi University (final year)</span>
+            <span class="chip"><span class="dot"></span>Commercial · Residential · Interiors</span>
+          </div>
+
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#work">View selected work</a>
+            <a class="btn btn-ghost" href="Niko-Mtema-CV.pdf" download>↓ Download CV (PDF)</a>
+          </div>
+        </div>
+
+        <div class="hero-art" style="background-image:url('images/hero.jpg')">
+          <div class="cap">Civic &amp; commercial design — Dar es Salaam</div>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><div class="num">350+</div><div class="lbl">Housing units designed</div></div>
+        <div class="stat"><div class="num">5</div><div class="lbl">Studio project bodies of work</div></div>
+        <div class="stat"><div class="num">2026</div><div class="lbl">B.Arch, Ardhi University</div></div>
+        <div class="stat"><div class="num">End-to-end</div><div class="lbl">Concept → 3D → drawings</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="block" id="about">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2 class="section-title">Duality, balance,<br>and the people inside</h2>
+        </div>
+      </div>
+      <div class="about-grid">
+        <div>
+          <p class="about-anchor">I'm <b>Niko J Mtema</b>, an architectural designer based in <b>Dar es Salaam, Tanzania</b>, completing my <b>Bachelor of Architecture at Ardhi University</b> (2021–2026). I work across commercial and residential design under <b>Arkitekti Studios</b>.</p>
+          <div class="edu">
+            <div class="row"><div class="yr">2021 — 2026</div><div class="ti">Bachelor of Architecture <span class="su">(ongoing)</span></div><div class="su">Ardhi University</div></div>
+            <div class="row"><div class="yr">2019 — 2021</div><div class="ti">Advanced Secondary Level</div><div class="su">Minaki High School</div></div>
+            <div class="row"><div class="yr">2015 — 2018</div><div class="ti">Ordinary Secondary Level</div><div class="su">Kibaha Secondary School</div></div>
+          </div>
+        </div>
+        <div class="about-body">
+          <p>My work is shaped by a deep interest in how people inhabit space — not only how a building looks, but how it feels to move through it.</p>
+          <p><strong>I design around contrast and balance:</strong> grounded against light, geometric against organic, structure against fluidity. Opposing elements brought into a single, coherent whole.</p>
+          <p>I take a project through every stage — concept, 3D visualization, and a full set of working drawings — and I keep drawing by hand throughout, because the idea should be tested in pencil before any software opens.</p>
+          <p style="font-size:14px;color:var(--faint);margin-top:4px"><strong style="color:var(--muted)">Languages:</strong> Swahili, English &nbsp;·&nbsp; <strong style="color:var(--muted)">Interests:</strong> Sketching, 3D art, animation, photography, football</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="block" id="skills">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2 class="section-title">How the work gets made</h2>
+        </div>
+        <p class="lead">A modelling, rendering and documentation stack built for commercial and residential delivery.</p>
+      </div>
+      <div class="skill-cols">
+        <div class="skill-card">
+          <h4>Design &amp; Modelling</h4>
+          <div class="skill-tags">
+            <span>Revit</span><span>ArchiCAD</span><span>3ds Max</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h4>Visualization</h4>
+          <div class="skill-tags">
+            <span>Lumion</span><span>D5 Render</span><span>V-Ray</span><span>Hand rendering</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h4>Graphics &amp; Layout</h4>
+          <div class="skill-tags">
+            <span>Adobe Photoshop</span><span>Adobe Illustrator</span><span>Adobe InDesign</span><span>Canva</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="block" id="work">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Selected Work</span>
+          <h2 class="section-title">Six bodies of work</h2>
+        </div>
+        <p class="lead">Individual studio projects from the Bachelor of Architecture at Ardhi University, spanning commercial, residential, interior and freehand work.</p>
+      </div>
+
+      <div class="proj-grid">
+
+        <!-- FEATURE: 5-star hotel -->
+        <article class="proj feature">
+          <div class="gallery">
+            <div class="g-main" style="background-image:url('images/hotel-1.jpg')">
+              <span class="status">Studio Project</span>
+            </div>
+            <div class="g-side">
+              <div style="background-image:url('images/hotel-2.jpg')"></div>
+              <div style="background-image:url('images/hotel-3.jpg')"></div>
+              <div style="background-image:url('images/hotel-4.jpg')"></div>
+            </div>
+          </div>
+          <div class="body">
+            <div class="meta"><span>Commercial · Hospitality</span><span>·</span><span>Ardhi University studio</span></div>
+            <h3>A 5-Star Hotel</h3>
+            <p>Defined by contrast and balance, the hotel is conceived around duality — opposing elements coexisting in harmony. A stone-clad podium anchors the building to its context while two refined towers rise above in glass and concrete, expressing lightness and precision. Clean geometric forms are softened by subtle organic curves, creating a dialogue between structure and fluidity.</p>
+            <div class="process">
+              <div class="step"><div class="k">Concept</div><div class="v">Duality — grounded mass vs. rising lightness</div></div>
+              <div class="step"><div class="k">Form</div><div class="v">Stone podium, twin glass-and-concrete towers</div></div>
+              <div class="step"><div class="k">Detail</div><div class="v">Geometry softened by organic curves</div></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- affordable housing -->
+        <article class="proj">
+          <div class="thumb-img" style="background-image:url('images/housing-1.jpg')">
+            <span class="status">Studio Project</span>
+          </div>
+          <div class="thumb-strip">
+            <div style="background-image:url('images/housing-2.jpg')"></div>
+            <div style="background-image:url('images/housing-3.jpg')"></div>
+          </div>
+          <div class="body">
+            <div class="meta"><span>Residential</span><span>·</span><span>350+ units</span></div>
+            <h3>Affordable Housing</h3>
+            <p>Over 350 residential units in a community-oriented plan. A colour-coded window-framing system distinguishes blocks and unit clusters through vibrant accents — improving wayfinding and unit identification without adding construction complexity.</p>
+          </div>
+        </article>
+
+        <!-- residentials -->
+        <article class="proj">
+          <div class="thumb-img" style="background-image:url('images/res-1.jpg')">
+            <span class="status">Studio Project</span>
+          </div>
+          <div class="thumb-strip">
+            <div style="background-image:url('images/res-2.jpg')"></div>
+          </div>
+          <div class="body">
+            <div class="meta"><span>Residential</span><span>·</span><span>Studio work</span></div>
+            <h3>Residentials</h3>
+            <p>A collection of residential studies exploring massing, daylight and the threshold between interior and garden — homes that open up as the day moves across them.</p>
+          </div>
+        </article>
+
+        <!-- interior -->
+        <article class="proj feature">
+          <div class="gallery">
+            <div class="g-main" style="background-image:url('images/interior-4.jpg')">
+              <span class="status">Studio Project</span>
+            </div>
+            <div class="g-side">
+              <div style="background-image:url('images/interior-1.jpg')"></div>
+              <div style="background-image:url('images/interior-2.jpg')"></div>
+              <div style="background-image:url('images/interior-3.jpg')"></div>
+              <div style="background-image:url('images/interior-5.jpg')"></div>
+            </div>
+          </div>
+          <div class="body">
+            <div class="meta"><span>Interiors</span><span>·</span><span>Studio work</span></div>
+            <h3>Interior Design</h3>
+            <p>Interiors where colour and texture carry the mood — sage green and burnt orange against warm plaster, daylight and lamplight studied as carefully as the furniture. Spaces built digitally first, then resolved down to material and finish.</p>
+          </div>
+        </article>
+
+        <!-- marble interior -->
+        <article class="proj feature">
+          <div class="gallery">
+            <div class="g-main" style="background-image:url('images/marble-3.jpg')">
+              <span class="status">Studio Project</span>
+            </div>
+            <div class="g-side">
+              <div style="background-image:url('images/marble-1.jpg')"></div>
+              <div style="background-image:url('images/marble-2.jpg')"></div>
+              <div style="background-image:url('images/marble-4.jpg')"></div>
+              <div style="background-image:url('images/marble-5.jpg')"></div>
+            </div>
+          </div>
+          <div class="body">
+            <div class="meta"><span>Interiors</span><span>·</span><span>Double-height living</span></div>
+            <h3>Marble Interior</h3>
+            <p>Double-height living anchored by marble — a stair clad in book-matched stone, a media wall framed in marble, a freestanding bath set against the skyline, a private cinema under a starlit ceiling. Contrast between stone, light and void sets the entire register of the space.</p>
+          </div>
+        </article>
+
+        <!-- hand sketches -->
+        <article class="proj feature">
+          <div class="sketch-grid">
+            <figure><span class="status sketch">By Hand</span><img src="images/sketch-1.jpg" alt="Cafeteria site plan at 1:200" loading="lazy"><figcaption>Site plan · 1:200</figcaption></figure>
+            <figure><img src="images/sketch-2.jpg" alt="Ground floor plan" loading="lazy"><figcaption>Ground floor plan</figcaption></figure>
+            <figure><img src="images/sketch-3.jpg" alt="Measured section A–A" loading="lazy"><figcaption>Section A–A</figcaption></figure>
+            <figure><img src="images/sketch-4.jpg" alt="Toilet construction details" loading="lazy"><figcaption>Construction details · 1:2–1:20</figcaption></figure>
+            <figure><img src="images/sketch-5.jpg" alt="Southern and northern elevations" loading="lazy"><figcaption>Elevations · colour</figcaption></figure>
+            <figure><img src="images/sketch-6.jpg" alt="Colour-pencil perspective" loading="lazy"><figcaption>Perspective · colour pencil</figcaption></figure>
+          </div>
+          <div class="body">
+            <div class="meta"><span>Freehand</span><span>·</span><span>Pencil &amp; ink</span></div>
+            <h3>Hand Sketches</h3>
+            <p>A complete hand-drafted set for the cafeteria — site plan at 1:200, floor plans, measured sections, construction details down to 1:2, coloured elevations and a colour-pencil perspective. Where every project begins: pencil, ink and a steady hand, before any software opens.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="block" id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2 class="section-title">From first sketch<br>to working drawings</h2>
+        </div>
+        <p class="lead">Commercial, residential or interior — full service across every stage of the design.</p>
+      </div>
+      <div class="svc-grid">
+        <div class="svc">
+          <div class="ic">01</div>
+          <h4>Concept &amp; planning</h4>
+          <p>By hand first — site plans, sections and studies test the idea before any software opens, so the bones are right before the polish begins.</p>
+        </div>
+        <div class="svc">
+          <div class="ic">02</div>
+          <h4>3D visualization</h4>
+          <p>You see and walk the finished space before a wall goes up — built digitally in Lumion, D5 and V-Ray so there are no surprises on site.</p>
+        </div>
+        <div class="svc">
+          <div class="ic">03</div>
+          <h4>Working drawings</h4>
+          <p>A full, buildable package modelled in Revit and ArchiCAD that a contractor can price and construct from — every stage covered.</p>
+        </div>
+        <div class="svc">
+          <div class="ic">04</div>
+          <h4>Interior concept</h4>
+          <p>Colour, texture and material chosen for the mood of the room — a space that feels considered, not decorated.</p>
+        </div>
+        <div class="svc">
+          <div class="ic">05</div>
+          <h4>Residential design</h4>
+          <p>From a single home to 350+ unit housing schemes — density planned so it never costs the resident their light or privacy.</p>
+        </div>
+        <div class="svc">
+          <div class="ic">06</div>
+          <h4>Visual &amp; graphic work</h4>
+          <p>Boards, diagrams and presentation graphics in the Adobe suite — the idea communicated as clearly as it's designed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REACH / GLOBE -->
+  <section class="block" id="reach">
+    <div class="wrap">
+      <div class="reach-grid">
+        <div>
+          <h2 class="section-title">From Dar es Salaam,<br>working worldwide</h2>
+          <p class="lead" style="margin-top:18px">Commissions and collaborations across hospitality, residential and interiors — on site in Tanzania, remote everywhere else.</p>
+          <div class="reach-stats">
+            <div><div class="rk">Home base</div><div class="rv">Dar es Salaam</div></div>
+            <div><div class="rk">Coordinates</div><div class="rv">6.8°S · 39.2°E</div></div>
+            <div><div class="rk">Availability</div><div class="rv">Open · 2026</div></div>
+          </div>
+          <div class="drag-hint">→ drag to spin the globe</div>
+        </div>
+        <div class="globe-wrap">
+          <canvas id="globe" width="960" height="960"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="block" id="contact" style="border-bottom:none">
+    <div class="wrap">
+      <div class="contact-grid">
+        <div class="contact-copy">
+          <h2 class="section-title">Let's design<br>your space</h2>
+          <p class="lead">Commercial, residential or interior — tell me about the site and the people who'll live or work in it, and I'll tell you how I'd approach it. Open to commissions, collaborations and internships.</p>
+          <div class="contact-list">
+            <a href="mailto:mnick123456@gmail.com"><span class="k">@</span>mnick123456@gmail.com</a>
+            <a href="tel:+255658677142"><span class="k">☎</span>+255 658 677 142</a>
+            <a href="https://wa.me/255658677142" target="_blank" rel="noopener"><span class="k">W</span>WhatsApp · +255 658 677 142</a>
+            <a href="#"><span class="k">⌖</span>Dar es Salaam, Tanzania</a>
+            <a href="Niko-Mtema-CV.pdf" download><span class="k">↓</span>Download CV (PDF)</a>
+          </div>
+        </div>
+
+        <form action="https://formsubmit.co/mnick123456@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="New enquiry from your portfolio">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="true">
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+          <div class="field">
+            <label for="name">Your name</label>
+            <input id="name" name="name" type="text" placeholder="Asha Mushi" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="asha@company.com" required>
+          </div>
+          <div class="field">
+            <label for="type">Project type</label>
+            <select id="type" name="type">
+              <option>Residential</option>
+              <option>Commercial</option>
+              <option>Interior</option>
+              <option>Hospitality</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="msg">The site and the people</label>
+            <textarea id="msg" name="message" placeholder="Tell me about the site, the brief, and who it's for." required></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit">Send enquiry →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="brand">NIKO<b>·</b>MTEMA <small>Arkitekti Studios</small></div>
+    <div>Architectural Designer — commercial and residential design, Dar es Salaam.</div>
+    <div style="margin-top:8px">© <span id="yr"></span> Niko J Mtema. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+<script type="module">
+  // Draggable globe (cobe) — recreated from the original portfolio, marked at Dar es Salaam
+  (async () => {
+    const canvas = document.getElementById('globe');
+    if (!canvas) return;
+    let createGlobe;
+    try {
+      const mod = await import('https://cdn.jsdelivr.net/npm/cobe@0.6.3/+esm');
+      createGlobe = mod.default;
+    } catch (e) { console.warn('Globe failed to load', e); return; }
+
+    let phi = 4.9;                 // start roughly facing Africa
+    let width = canvas.offsetWidth || 480;
+    let pointerInteracting = null;
+    let pointerMovement = 0;
+
+    const onResize = () => { width = canvas.offsetWidth || 480; };
+    window.addEventListener('resize', onResize);
+
+    canvas.onpointerdown = (e) => {
+      pointerInteracting = e.clientX - pointerMovement;
+      canvas.style.cursor = 'grabbing';
+    };
+    const release = () => { pointerInteracting = null; canvas.style.cursor = 'grab'; };
+    canvas.onpointerup = release;
+    canvas.onpointerout = release;
+    canvas.onpointermove = (e) => {
+      if (pointerInteracting !== null) pointerMovement = e.clientX - pointerInteracting;
+    };
+
+    createGlobe(canvas, {
+      devicePixelRatio: 2,
+      width: width * 2,
+      height: width * 2,
+      phi: 0,
+      theta: 0.22,
+      dark: 1,
+      diffuse: 1.25,
+      mapSamples: 18000,
+      mapBrightness: 5.6,
+      baseColor: [0.55, 0.68, 0.82],
+      markerColor: [0.88, 0.42, 0.25],
+      glowColor: [0.05, 0.12, 0.22],
+      markers: [{ location: [-6.7924, 39.2083], size: 0.12 }],
+      onRender: (state) => {
+        if (pointerInteracting === null) phi += 0.0045;
+        state.phi = phi + pointerMovement / 200;
+        state.width = width * 2;
+        state.height = width * 2;
+      },
+    });
+  })();
+</script>
+</body>
+</html>

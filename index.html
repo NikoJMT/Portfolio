@@ -3,600 +3,742 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Niko J Mtema — Architectural Designer · Arkitekti Studios</title>
-<meta name="description" content="Niko J Mtema — architectural designer, Dar es Salaam. Commercial and residential design. Final-year Bachelor of Architecture, Ardhi University. Spaces built on contrast.">
+<title>Niko J Mtema — Interactive Portfolio World</title>
+<meta name="description" content="An interactive 3D world of Niko J Mtema's architectural projects — fly between buildings, open galleries, step inside.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Architects+Daughter&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#161310; --panel:#221d18; --panel-2:#2a2520; --line:#3a332c;
-    --ink:#ece7df; --muted:#a59c8f; --faint:#6f675c;
-    --coral:#b5471f; --coral-2:#c75a30;
-    --display:'Archivo',sans-serif; --body:'Inter',system-ui,sans-serif;
-    --maxw:1180px;
+    --bg:#0f2439; --ink:#e8f1f8; --muted:#a9c3d9; --faint:#7d9cb5;
+    --coral:#bf4420; --coral-2:#e06a3f; --panel:#132c47; --line:#2c4e72;
+    --display:'Chakra Petch',sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',monospace; --ease:cubic-bezier(.23,1,.32,1);
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased}
+  html,body{height:100%}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);overflow:hidden;-webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
-  img{max-width:100%;display:block}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
-  .eyebrow{font-family:var(--body);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--coral-2);font-weight:600}
-  .section-title{font-family:var(--display);font-weight:800;font-size:clamp(28px,4vw,46px);letter-spacing:-.02em;line-height:1.02}
-  .lead{color:var(--muted);font-size:18px;max-width:62ch}
+  canvas{display:block}
+  #app{position:fixed;inset:0}
 
-  /* NAV */
-  header.nav{position:sticky;top:0;z-index:50;background:rgba(22,19,16,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
-  .brand{font-family:var(--display);font-weight:900;letter-spacing:-.01em;font-size:17px;display:flex;align-items:center;gap:8px}
-  .brand b{color:var(--coral-2);font-weight:900}
-  .brand small{font-family:var(--body);font-weight:500;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
-  .nav-links{display:flex;gap:26px;align-items:center}
-  .nav-links a{color:var(--muted);font-size:14px;font-weight:500;transition:color .2s}
-  .nav-links a:hover{color:var(--ink)}
-  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;padding:10px 18px;border-radius:999px;transition:.2s;cursor:pointer;border:1px solid transparent}
-  .btn-primary{background:var(--coral);color:#fff}
-  .btn-primary:hover{background:var(--coral-2)}
-  .btn-ghost{border-color:var(--line);color:var(--ink)}
-  .btn-ghost:hover{border-color:var(--coral-2);color:#fff}
-  .nav-cta{display:flex;gap:10px;align-items:center}
+  /* TOP BAR */
+  .topbar{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
+    padding:14px 20px;background:linear-gradient(to bottom,rgba(13,31,50,.85),rgba(13,31,50,0));pointer-events:none}
+  .brand{font-family:var(--display);font-weight:700;letter-spacing:-.01em;font-size:16px;pointer-events:auto}
+  .brand b{color:var(--coral-2)}
+  .brand small{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);display:block;margin-top:1px}
+  .top-actions{display:flex;gap:8px;pointer-events:auto}
+  .chip{font-family:var(--display);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:8px 14px;border-radius:6px;border:1px solid var(--line);
+    background:rgba(19,40,63,.7);color:var(--ink);cursor:pointer;transition:.18s;backdrop-filter:blur(6px)}
+  .chip:hover{border-color:var(--coral-2);color:#fff}
+  .chip.solid{background:var(--coral);border-color:var(--coral)}
+  .chip.solid:hover{background:var(--coral-2)}
 
-  /* HERO */
-  .hero{position:relative;padding:84px 0 64px;border-bottom:1px solid var(--line);overflow:hidden}
-  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
-  .hero h1{font-family:var(--display);font-weight:900;font-size:clamp(44px,7.5vw,92px);line-height:.94;letter-spacing:-.03em}
-  .hero h1 .accent{color:var(--coral-2)}
-  .tagline{margin-top:22px;font-family:var(--display);font-weight:500;font-size:clamp(20px,2.4vw,28px);letter-spacing:-.01em}
-  .tagline-gloss{margin-top:10px;color:var(--muted);font-size:17px;max-width:50ch}
-  .hero-anchor{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
-  .chip{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:500;color:var(--ink);background:var(--panel);border:1px solid var(--line);padding:8px 14px;border-radius:999px}
-  .chip .dot{width:7px;height:7px;border-radius:50%;background:var(--coral-2)}
-  .hero-cta{margin-top:30px;display:flex;flex-wrap:wrap;gap:12px}
-  .hero-art{position:relative;aspect-ratio:4/5;border-radius:16px;background:linear-gradient(160deg,#2a2520,#1c1814);background-size:cover;background-position:center;border:1px solid var(--line);overflow:hidden;display:flex;align-items:flex-end;padding:18px}
-  .hero-art::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(15,12,10,.72),rgba(15,12,10,0) 45%)}
-  .hero-art .cap{position:relative;z-index:1;font-size:13px;color:#ece7df;font-weight:500}
+  /* PROJECT DOCK (bottom) */
+  .dock{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:20;display:flex;gap:8px;
+    padding:8px;background:rgba(19,40,63,.72);border:1px solid var(--line);border-radius:10px;backdrop-filter:blur(10px);
+    max-width:calc(100vw - 24px);overflow-x:auto}
+  .dock button{flex:none;font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.02em;
+    padding:9px 14px;border-radius:6px;border:1px solid transparent;background:transparent;color:var(--muted);cursor:pointer;transition:.16s;white-space:nowrap;display:flex;align-items:center;gap:8px}
+  .dock button .dot{width:8px;height:8px;border-radius:50%;background:currentColor;opacity:.9}
+  .dock button:hover{color:var(--ink);background:rgba(255,255,255,.04)}
+  .dock button.active{color:#fff;background:rgba(255,255,255,.07);border-color:var(--line)}
 
-  /* STATS strip */
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:54px}
-  .stat{padding:20px 22px;border-right:1px solid var(--line)}
-  .stat:last-child{border-right:none}
-  .stat .num{font-family:var(--display);font-weight:800;font-size:28px;letter-spacing:-.02em}
-  .stat .lbl{color:var(--muted);font-size:13px;margin-top:2px}
+  /* HINT */
+  .hint{position:fixed;bottom:74px;left:50%;transform:translateX(-50%);z-index:15;font-size:12px;color:var(--muted);
+    background:rgba(13,31,50,.6);padding:6px 14px;border-radius:6px;pointer-events:none;transition:opacity .6s;letter-spacing:.02em}
 
-  /* SECTION */
-  section.block{padding:84px 0;border-bottom:1px solid var(--line)}
-  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+  /* INFO PANEL */
+  .panel{position:fixed;top:0;right:0;bottom:0;width:min(420px,90vw);z-index:30;background:var(--panel);
+    border-left:1px solid var(--line);transform:translateX(102%);transition:transform .5s cubic-bezier(.4,0,.15,1);
+    display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.4)}
+  .panel.open{transform:translateX(0)}
+  .panel-head{padding:26px 26px 18px;border-bottom:1px solid var(--line);position:relative}
+  .panel .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral-2);font-weight:600}
+  .panel h2{font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:-.01em;line-height:1.05;margin-top:8px}
+  .panel .status{display:inline-block;margin-top:12px;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+    color:#f0a284;background:rgba(224,106,63,.16);border:1px solid rgba(224,106,63,.5);padding:4px 10px;border-radius:3px;font-family:var(--mono)}
+  .panel-close{position:absolute;top:22px;right:22px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);
+    background:transparent;color:var(--ink);font-size:17px;cursor:pointer;transition:.16s;line-height:1}
+  .panel-close:hover{border-color:var(--coral-2);color:#fff}
+  .panel-body{padding:22px 26px 30px;overflow-y:auto;flex:1}
+  .panel-body p.blurb{color:var(--muted);font-size:14.5px;line-height:1.6;margin-bottom:20px}
+  .panel .actions{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .panel .actions button{font-family:var(--display);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.03em;padding:9px 15px;border-radius:6px;cursor:pointer;transition:.16s;border:1px solid var(--line);background:transparent;color:var(--ink);display:flex;align-items:center;gap:7px}
+  .panel .actions button:hover{border-color:var(--coral-2)}
+  .panel .actions button.primary{background:var(--coral);border-color:var(--coral)}
+  .panel .actions button.primary:hover{background:var(--coral-2)}
+  .gallery-label{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin:6px 0 10px}
+  .thumbs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .thumbs .t{aspect-ratio:4/3;border-radius:10px;background:#0c2036 center/cover no-repeat;cursor:pointer;border:1px solid var(--line);transition:.16s;position:relative;overflow:hidden;animation:thumbIn .5s cubic-bezier(.22,.9,.3,1) backwards}
+  @keyframes thumbIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+  .thumbs .t:hover{border-color:var(--coral-2);transform:translateY(-2px)}
+  .thumbs .t.wide{grid-column:span 2;aspect-ratio:16/9}
 
-  /* ABOUT */
-  .about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px}
-  .about-anchor{font-family:var(--display);font-weight:500;font-size:22px;line-height:1.35;letter-spacing:-.01em}
-  .about-anchor b{color:var(--coral-2);font-weight:600}
-  .about-body p{color:var(--muted);font-size:17px;margin-bottom:16px;max-width:60ch}
-  .about-body p strong{color:var(--ink);font-weight:600}
+  /* LIGHTBOX */
+  .lightbox{position:fixed;inset:0;z-index:50;background:rgba(6,15,26,.95);display:none;align-items:center;justify-content:center;flex-direction:column}
+  .lightbox.open{display:flex}
+  .lb-stage{position:relative;width:92vw;height:78vh;touch-action:pan-y}
+  .lb-stage img{position:absolute;inset:0;margin:auto;max-width:100%;max-height:100%;object-fit:contain;border-radius:6px;
+    box-shadow:0 20px 80px rgba(0,0,0,.6);opacity:0;will-change:transform,opacity;user-select:none;-webkit-user-drag:none}
+  .lb-stage img.kb{animation:kbzoom 4.2s linear forwards}
+  @keyframes kbzoom{from{scale:1}to{scale:1.05}}
+  .lb-play{position:absolute;bottom:24px;right:26px;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);
+    background:rgba(19,40,63,.6);color:#fff;font-size:15px;cursor:pointer;transition:.16s}
+  .lb-play:hover{border-color:var(--coral-2);background:rgba(224,106,63,.3)}
+  .lb-play.on{background:var(--coral);border-color:var(--coral)}
+  .lb-cap{margin-top:16px;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.04em;color:var(--muted);text-transform:uppercase}
+  .lb-close{position:absolute;top:22px;right:26px;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:rgba(19,40,63,.6);color:#fff;font-size:20px;cursor:pointer}
+  .lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;border:1px solid var(--line);
+    background:rgba(19,40,63,.6);color:#fff;font-size:22px;cursor:pointer;transition:.16s}
+  .lb-nav:hover{border-color:var(--coral-2);background:rgba(224,106,63,.3)}
+  .lb-prev{left:24px}.lb-next{right:24px}
+  .lb-count{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:12px;color:var(--muted);letter-spacing:.1em}
 
-  /* EDUCATION timeline */
-  .edu{margin-top:30px;border-left:2px solid var(--line);padding-left:22px;display:flex;flex-direction:column;gap:18px}
-  .edu .row .yr{font-family:var(--display);font-weight:800;font-size:14px;color:var(--coral-2);letter-spacing:.04em}
-  .edu .row .ti{font-size:15px;color:var(--ink);margin-top:2px}
-  .edu .row .su{font-size:14px;color:var(--muted)}
+  /* INTRO / LOADER */
+  .intro{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:24px;transition:opacity .8s}
+  .intro.hide{opacity:0;pointer-events:none}
+  .intro .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--coral-2);font-weight:600}
+  .intro h1{font-family:var(--display);font-weight:700;font-size:clamp(38px,8vw,80px);line-height:.94;letter-spacing:-.03em;margin:16px 0}
+  .intro h1 b{color:var(--coral-2)}
+  .intro p{color:var(--muted);font-size:16px;max-width:44ch;margin:0 auto 26px}
+  .intro .enter{font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.04em;text-transform:uppercase;padding:14px 30px;border-radius:6px;background:var(--coral);color:#fff;border:none;cursor:pointer;transition:.18s}
+  .intro .enter:hover{background:var(--coral-2);transform:translateY(-1px)}
+  .intro .enter:disabled{opacity:.5;cursor:default}
+  .intro .loadbar{width:200px;height:3px;background:var(--line);border-radius:2px;margin:18px auto 0;overflow:hidden}
+  .intro .loadbar i{display:block;height:100%;width:0;background:var(--coral-2);transition:width .3s}
+  .intro .controls-note{margin-top:22px;font-size:12px;color:var(--faint);letter-spacing:.02em}
 
-  /* SKILLS */
-  .skill-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  .skill-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
-  .skill-card h4{font-family:var(--display);font-weight:600;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--coral-2);margin-bottom:14px}
-  .skill-tags{display:flex;flex-wrap:wrap;gap:8px}
-  .skill-tags span{font-size:13px;color:var(--ink);background:var(--panel-2);border:1px solid var(--line);padding:6px 12px;border-radius:8px}
+  /* FALLBACK */
+  .fallback{position:fixed;inset:0;z-index:70;background:var(--bg);display:none;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:30px}
+  .fallback.show{display:flex}
+  .fallback a{margin-top:18px;color:var(--coral-2);font-weight:600;border:1px solid var(--line);padding:12px 22px;border-radius:6px}
 
-  /* PROJECTS */
-  .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
-  .proj{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:.25s;display:flex;flex-direction:column}
-  .proj:hover{border-color:var(--coral-2);transform:translateY(-3px)}
-  .proj .thumb{aspect-ratio:16/10;background:linear-gradient(150deg,#2c2620,#1b1713);position:relative;display:flex;align-items:center;justify-content:center;color:var(--faint);font-size:13px;text-align:center;padding:20px;border-bottom:1px solid var(--line)}
-  .proj.feature{grid-column:span 2}
-  .proj.feature .thumb{aspect-ratio:21/9}
-  .gallery{display:grid;grid-template-columns:2.2fr 1fr;gap:6px;background:var(--line);border-bottom:1px solid var(--line);height:clamp(280px,34vw,400px)}
-  .gallery .g-main{position:relative;background:#1b1713 center/cover no-repeat;display:flex;align-items:flex-start}
-  .gallery .g-main .status{position:absolute;top:14px;left:14px}
-  .gallery .g-side{display:grid;grid-auto-rows:1fr;gap:6px}
-  .gallery .g-side>div{background:#1b1713 center/cover no-repeat}
-  .thumb-img{aspect-ratio:16/10;background:#1b1713 center/cover no-repeat;position:relative;border-bottom:1px solid var(--line)}
-  .thumb-img .status{position:absolute;top:14px;left:14px}
-  .thumb-strip{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:4px;padding:4px;background:var(--line)}
-  .thumb-strip>div{aspect-ratio:16/10;background:#1b1713 center/cover no-repeat;border-radius:6px}
-  .sketch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--line);border-bottom:1px solid var(--line)}
-  .sketch-grid figure{position:relative;margin:0;background:#f4efe6;aspect-ratio:4/3;overflow:hidden}
-  .sketch-grid img{width:100%;height:100%;object-fit:contain;padding:6px;display:block}
-  .sketch-grid figcaption{position:absolute;bottom:0;left:0;right:0;font-family:var(--display);font-weight:600;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#5b5247;background:rgba(244,239,230,.92);padding:5px 9px}
-  .sketch-grid .status{position:absolute;top:12px;left:12px;z-index:1}
-  .status{position:absolute;top:14px;left:14px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:5px 11px;border-radius:999px;border:1px solid;background:rgba(181,71,31,.16);color:#e89a78;border-color:rgba(181,71,31,.5)}
-  .status.sketch{background:rgba(165,156,143,.14);color:#cbc3b6;border-color:rgba(165,156,143,.4)}
-  .proj .body{padding:22px;display:flex;flex-direction:column;gap:12px;flex:1}
-  .proj .meta{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;flex-wrap:wrap}
-  .proj h3{font-family:var(--display);font-weight:800;font-size:23px;letter-spacing:-.01em;line-height:1.1}
-  .proj p{color:var(--muted);font-size:15px}
-  .process{display:flex;gap:8px;margin-top:auto;flex-wrap:wrap}
-  .process .step{flex:1;min-width:90px;background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
-  .process .step .k{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--coral-2);font-weight:600}
-  .process .step .v{font-size:13px;color:var(--ink);margin-top:3px;line-height:1.35}
-
-  /* SERVICES */
-  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  .svc{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:24px}
-  .svc .ic{width:42px;height:42px;border-radius:10px;background:var(--panel-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--coral-2);font-family:var(--display);font-weight:800;margin-bottom:14px}
-  .svc h4{font-family:var(--display);font-weight:600;font-size:18px;margin-bottom:6px}
-  .svc p{color:var(--muted);font-size:15px}
-
-  /* REACH / GLOBE */
-  .reach-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-  .reach-stats{display:flex;gap:40px;margin-top:34px;flex-wrap:wrap}
-  .reach-stats .rk{font-family:var(--display);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
-  .reach-stats .rv{font-family:var(--display);font-weight:800;font-size:17px;color:var(--ink);margin-top:6px;text-transform:uppercase}
-  .drag-hint{display:inline-block;margin-top:26px;font-family:var(--display);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--coral-2)}
-  .globe-wrap{display:flex;justify-content:center;align-items:center}
-  #globe{width:480px;height:480px;max-width:100%;aspect-ratio:1;cursor:grab;contain:layout paint size}
-
-  /* CONTACT */
-  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
-  .contact-copy .lead{margin-top:18px}
-  .contact-list{margin-top:26px;display:flex;flex-direction:column;gap:14px}
-  .contact-list a{display:flex;align-items:center;gap:12px;color:var(--ink);font-size:16px;font-weight:500}
-  .contact-list a .k{width:34px;height:34px;border-radius:8px;background:var(--panel-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--coral-2);font-size:14px;font-family:var(--display);font-weight:800}
-  .contact-list a:hover{color:var(--coral-2)}
-  form{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px}
-  .field{margin-bottom:16px}
-  label{display:block;font-size:13px;color:var(--muted);margin-bottom:7px;font-weight:500}
-  input,textarea,select{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--ink);font-family:var(--body);font-size:15px;transition:.2s}
-  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--coral-2)}
-  textarea{resize:vertical;min-height:110px}
-  form .btn-primary{width:100%;justify-content:center;margin-top:6px}
-
-  footer{padding:42px 0;text-align:center;color:var(--faint);font-size:14px}
-  footer .brand{justify-content:center;margin-bottom:10px}
-
-  @media(max-width:880px){
-    .hero-grid,.about-grid,.contact-grid,.reach-grid{grid-template-columns:1fr;gap:32px}
-    .hero-art{aspect-ratio:16/11}
-    .skill-cols,.svc-grid{grid-template-columns:1fr}
-    .proj-grid{grid-template-columns:1fr}
-    .proj.feature{grid-column:span 1}
-    .sketch-grid{grid-template-columns:repeat(2,1fr)}
-    .stats{grid-template-columns:1fr 1fr}
-    .stat:nth-child(2){border-right:none}
-    .stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid var(--line)}
-    .nav-links{display:none}
+  @media(max-width:640px){
+    .brand small{display:none}
+    .dock button span.txt{display:none}
+    .dock button{padding:10px}
   }
 </style>
 </head>
 <body>
 
-<header class="nav">
-  <div class="wrap nav-inner">
-    <a href="#top" class="brand">NIKO<b>·</b>MTEMA <small>Arkitekti Studios</small></a>
-    <nav class="nav-links">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#work">Work</a>
-      <a href="#services">Services</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <div class="nav-cta">
-      <a class="btn btn-ghost" href="Niko-Mtema-CV.pdf" download>↓ CV</a>
-      <a class="btn btn-primary" href="#contact">Let's talk</a>
-    </div>
+<div id="app"></div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <a class="brand" href="#" onclick="World.aerial();return false;">NIKO<b>·</b>MTEMA
+    <small>Arkitekti Studios — 3D Portfolio</small>
+  </a>
+  <div class="top-actions">
+    <button class="chip" onclick="World.aerial()">◎ Aerial view</button>
+    <a class="chip" href="portfolio.html">Full portfolio ↗</a>
+    <a class="chip solid" href="Niko-Mtema-CV.pdf" download>↓ CV</a>
   </div>
-</header>
+</div>
 
-<main id="top">
+<!-- PROJECT DOCK -->
+<div class="dock" id="dock"></div>
+<div class="hint" id="hint">Drag to orbit · scroll to zoom · click a building to enter</div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="wrap">
-      <div class="hero-grid">
-        <div>
-          <span class="eyebrow">Architectural Designer · Dar es Salaam</span>
-          <h1>NIKO&nbsp;J<br><span class="accent">MTEMA</span></h1>
-          <p class="tagline">Designer of spaces built on contrast.</p>
-          <p class="tagline-gloss">Commercial and residential design rooted in duality — opposing elements brought into harmony, from grounded stone to rising glass.</p>
-
-          <div class="hero-anchor">
-            <span class="chip"><span class="dot"></span>Dar es Salaam, Tanzania</span>
-            <span class="chip"><span class="dot"></span>B.Arch — Ardhi University (final year)</span>
-            <span class="chip"><span class="dot"></span>Commercial · Residential · Interiors</span>
-          </div>
-
-          <div class="hero-cta">
-            <a class="btn btn-primary" href="#work">View selected work</a>
-            <a class="btn btn-ghost" href="Niko-Mtema-CV.pdf" download>↓ Download CV (PDF)</a>
-          </div>
-        </div>
-
-        <div class="hero-art" style="background-image:url('images/hero.jpg')">
-          <div class="cap">Civic &amp; commercial design — Dar es Salaam</div>
-        </div>
-      </div>
-
-      <div class="stats">
-        <div class="stat"><div class="num">350+</div><div class="lbl">Housing units designed</div></div>
-        <div class="stat"><div class="num">5</div><div class="lbl">Studio project bodies of work</div></div>
-        <div class="stat"><div class="num">2026</div><div class="lbl">B.Arch, Ardhi University</div></div>
-        <div class="stat"><div class="num">End-to-end</div><div class="lbl">Concept → 3D → drawings</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section class="block" id="about">
-    <div class="wrap">
-      <div class="sec-head">
-        <div>
-          <span class="eyebrow">About</span>
-          <h2 class="section-title">Duality, balance,<br>and the people inside</h2>
-        </div>
-      </div>
-      <div class="about-grid">
-        <div>
-          <p class="about-anchor">I'm <b>Niko J Mtema</b>, an architectural designer based in <b>Dar es Salaam, Tanzania</b>, completing my <b>Bachelor of Architecture at Ardhi University</b> (2021–2026). I work across commercial and residential design under <b>Arkitekti Studios</b>.</p>
-          <div class="edu">
-            <div class="row"><div class="yr">2021 — 2026</div><div class="ti">Bachelor of Architecture <span class="su">(ongoing)</span></div><div class="su">Ardhi University</div></div>
-            <div class="row"><div class="yr">2019 — 2021</div><div class="ti">Advanced Secondary Level</div><div class="su">Minaki High School</div></div>
-            <div class="row"><div class="yr">2015 — 2018</div><div class="ti">Ordinary Secondary Level</div><div class="su">Kibaha Secondary School</div></div>
-          </div>
-        </div>
-        <div class="about-body">
-          <p>My work is shaped by a deep interest in how people inhabit space — not only how a building looks, but how it feels to move through it.</p>
-          <p><strong>I design around contrast and balance:</strong> grounded against light, geometric against organic, structure against fluidity. Opposing elements brought into a single, coherent whole.</p>
-          <p>I take a project through every stage — concept, 3D visualization, and a full set of working drawings — and I keep drawing by hand throughout, because the idea should be tested in pencil before any software opens.</p>
-          <p style="font-size:14px;color:var(--faint);margin-top:4px"><strong style="color:var(--muted)">Languages:</strong> Swahili, English &nbsp;·&nbsp; <strong style="color:var(--muted)">Interests:</strong> Sketching, 3D art, animation, photography, football</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SKILLS -->
-  <section class="block" id="skills">
-    <div class="wrap">
-      <div class="sec-head">
-        <div>
-          <span class="eyebrow">Tools &amp; Skills</span>
-          <h2 class="section-title">How the work gets made</h2>
-        </div>
-        <p class="lead">A modelling, rendering and documentation stack built for commercial and residential delivery.</p>
-      </div>
-      <div class="skill-cols">
-        <div class="skill-card">
-          <h4>Design &amp; Modelling</h4>
-          <div class="skill-tags">
-            <span>Revit</span><span>ArchiCAD</span><span>3ds Max</span>
-          </div>
-        </div>
-        <div class="skill-card">
-          <h4>Visualization</h4>
-          <div class="skill-tags">
-            <span>Lumion</span><span>D5 Render</span><span>V-Ray</span><span>Hand rendering</span>
-          </div>
-        </div>
-        <div class="skill-card">
-          <h4>Graphics &amp; Layout</h4>
-          <div class="skill-tags">
-            <span>Adobe Photoshop</span><span>Adobe Illustrator</span><span>Adobe InDesign</span><span>Canva</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WORK -->
-  <section class="block" id="work">
-    <div class="wrap">
-      <div class="sec-head">
-        <div>
-          <span class="eyebrow">Selected Work</span>
-          <h2 class="section-title">Six bodies of work</h2>
-        </div>
-        <p class="lead">Individual studio projects from the Bachelor of Architecture at Ardhi University, spanning commercial, residential, interior and freehand work.</p>
-      </div>
-
-      <div class="proj-grid">
-
-        <!-- FEATURE: 5-star hotel -->
-        <article class="proj feature">
-          <div class="gallery">
-            <div class="g-main" style="background-image:url('images/hotel-1.jpg')">
-              <span class="status">Studio Project</span>
-            </div>
-            <div class="g-side">
-              <div style="background-image:url('images/hotel-2.jpg')"></div>
-              <div style="background-image:url('images/hotel-3.jpg')"></div>
-              <div style="background-image:url('images/hotel-4.jpg')"></div>
-            </div>
-          </div>
-          <div class="body">
-            <div class="meta"><span>Commercial · Hospitality</span><span>·</span><span>Ardhi University studio</span></div>
-            <h3>A 5-Star Hotel</h3>
-            <p>Defined by contrast and balance, the hotel is conceived around duality — opposing elements coexisting in harmony. A stone-clad podium anchors the building to its context while two refined towers rise above in glass and concrete, expressing lightness and precision. Clean geometric forms are softened by subtle organic curves, creating a dialogue between structure and fluidity.</p>
-            <div class="process">
-              <div class="step"><div class="k">Concept</div><div class="v">Duality — grounded mass vs. rising lightness</div></div>
-              <div class="step"><div class="k">Form</div><div class="v">Stone podium, twin glass-and-concrete towers</div></div>
-              <div class="step"><div class="k">Detail</div><div class="v">Geometry softened by organic curves</div></div>
-            </div>
-          </div>
-        </article>
-
-        <!-- affordable housing -->
-        <article class="proj">
-          <div class="thumb-img" style="background-image:url('images/housing-1.jpg')">
-            <span class="status">Studio Project</span>
-          </div>
-          <div class="thumb-strip">
-            <div style="background-image:url('images/housing-2.jpg')"></div>
-            <div style="background-image:url('images/housing-3.jpg')"></div>
-          </div>
-          <div class="body">
-            <div class="meta"><span>Residential</span><span>·</span><span>350+ units</span></div>
-            <h3>Affordable Housing</h3>
-            <p>Over 350 residential units in a community-oriented plan. A colour-coded window-framing system distinguishes blocks and unit clusters through vibrant accents — improving wayfinding and unit identification without adding construction complexity.</p>
-          </div>
-        </article>
-
-        <!-- residentials -->
-        <article class="proj">
-          <div class="thumb-img" style="background-image:url('images/res-1.jpg')">
-            <span class="status">Studio Project</span>
-          </div>
-          <div class="thumb-strip">
-            <div style="background-image:url('images/res-2.jpg')"></div>
-          </div>
-          <div class="body">
-            <div class="meta"><span>Residential</span><span>·</span><span>Studio work</span></div>
-            <h3>Residentials</h3>
-            <p>A collection of residential studies exploring massing, daylight and the threshold between interior and garden — homes that open up as the day moves across them.</p>
-          </div>
-        </article>
-
-        <!-- interior -->
-        <article class="proj feature">
-          <div class="gallery">
-            <div class="g-main" style="background-image:url('images/interior-4.jpg')">
-              <span class="status">Studio Project</span>
-            </div>
-            <div class="g-side">
-              <div style="background-image:url('images/interior-1.jpg')"></div>
-              <div style="background-image:url('images/interior-2.jpg')"></div>
-              <div style="background-image:url('images/interior-3.jpg')"></div>
-              <div style="background-image:url('images/interior-5.jpg')"></div>
-            </div>
-          </div>
-          <div class="body">
-            <div class="meta"><span>Interiors</span><span>·</span><span>Studio work</span></div>
-            <h3>Interior Design</h3>
-            <p>Interiors where colour and texture carry the mood — sage green and burnt orange against warm plaster, daylight and lamplight studied as carefully as the furniture. Spaces built digitally first, then resolved down to material and finish.</p>
-          </div>
-        </article>
-
-        <!-- marble interior -->
-        <article class="proj feature">
-          <div class="gallery">
-            <div class="g-main" style="background-image:url('images/marble-3.jpg')">
-              <span class="status">Studio Project</span>
-            </div>
-            <div class="g-side">
-              <div style="background-image:url('images/marble-1.jpg')"></div>
-              <div style="background-image:url('images/marble-2.jpg')"></div>
-              <div style="background-image:url('images/marble-4.jpg')"></div>
-              <div style="background-image:url('images/marble-5.jpg')"></div>
-            </div>
-          </div>
-          <div class="body">
-            <div class="meta"><span>Interiors</span><span>·</span><span>Double-height living</span></div>
-            <h3>Marble Interior</h3>
-            <p>Double-height living anchored by marble — a stair clad in book-matched stone, a media wall framed in marble, a freestanding bath set against the skyline, a private cinema under a starlit ceiling. Contrast between stone, light and void sets the entire register of the space.</p>
-          </div>
-        </article>
-
-        <!-- hand sketches -->
-        <article class="proj feature">
-          <div class="sketch-grid">
-            <figure><span class="status sketch">By Hand</span><img src="images/sketch-1.jpg" alt="Cafeteria site plan at 1:200" loading="lazy"><figcaption>Site plan · 1:200</figcaption></figure>
-            <figure><img src="images/sketch-2.jpg" alt="Ground floor plan" loading="lazy"><figcaption>Ground floor plan</figcaption></figure>
-            <figure><img src="images/sketch-3.jpg" alt="Measured section A–A" loading="lazy"><figcaption>Section A–A</figcaption></figure>
-            <figure><img src="images/sketch-4.jpg" alt="Toilet construction details" loading="lazy"><figcaption>Construction details · 1:2–1:20</figcaption></figure>
-            <figure><img src="images/sketch-5.jpg" alt="Southern and northern elevations" loading="lazy"><figcaption>Elevations · colour</figcaption></figure>
-            <figure><img src="images/sketch-6.jpg" alt="Colour-pencil perspective" loading="lazy"><figcaption>Perspective · colour pencil</figcaption></figure>
-          </div>
-          <div class="body">
-            <div class="meta"><span>Freehand</span><span>·</span><span>Pencil &amp; ink</span></div>
-            <h3>Hand Sketches</h3>
-            <p>A complete hand-drafted set for the cafeteria — site plan at 1:200, floor plans, measured sections, construction details down to 1:2, coloured elevations and a colour-pencil perspective. Where every project begins: pencil, ink and a steady hand, before any software opens.</p>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section class="block" id="services">
-    <div class="wrap">
-      <div class="sec-head">
-        <div>
-          <span class="eyebrow">What I do</span>
-          <h2 class="section-title">From first sketch<br>to working drawings</h2>
-        </div>
-        <p class="lead">Commercial, residential or interior — full service across every stage of the design.</p>
-      </div>
-      <div class="svc-grid">
-        <div class="svc">
-          <div class="ic">01</div>
-          <h4>Concept &amp; planning</h4>
-          <p>By hand first — site plans, sections and studies test the idea before any software opens, so the bones are right before the polish begins.</p>
-        </div>
-        <div class="svc">
-          <div class="ic">02</div>
-          <h4>3D visualization</h4>
-          <p>You see and walk the finished space before a wall goes up — built digitally in Lumion, D5 and V-Ray so there are no surprises on site.</p>
-        </div>
-        <div class="svc">
-          <div class="ic">03</div>
-          <h4>Working drawings</h4>
-          <p>A full, buildable package modelled in Revit and ArchiCAD that a contractor can price and construct from — every stage covered.</p>
-        </div>
-        <div class="svc">
-          <div class="ic">04</div>
-          <h4>Interior concept</h4>
-          <p>Colour, texture and material chosen for the mood of the room — a space that feels considered, not decorated.</p>
-        </div>
-        <div class="svc">
-          <div class="ic">05</div>
-          <h4>Residential design</h4>
-          <p>From a single home to 350+ unit housing schemes — density planned so it never costs the resident their light or privacy.</p>
-        </div>
-        <div class="svc">
-          <div class="ic">06</div>
-          <h4>Visual &amp; graphic work</h4>
-          <p>Boards, diagrams and presentation graphics in the Adobe suite — the idea communicated as clearly as it's designed.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- REACH / GLOBE -->
-  <section class="block" id="reach">
-    <div class="wrap">
-      <div class="reach-grid">
-        <div>
-          <span class="eyebrow">Reach</span>
-          <h2 class="section-title">From Dar es Salaam,<br>working worldwide</h2>
-          <p class="lead" style="margin-top:18px">Commissions and collaborations across hospitality, residential and interiors — on site in Tanzania, remote everywhere else.</p>
-          <div class="reach-stats">
-            <div><div class="rk">Home base</div><div class="rv">Dar es Salaam</div></div>
-            <div><div class="rk">Coordinates</div><div class="rv">6.8°S · 39.2°E</div></div>
-            <div><div class="rk">Availability</div><div class="rv">Open · 2026</div></div>
-          </div>
-          <div class="drag-hint">→ drag to spin the globe</div>
-        </div>
-        <div class="globe-wrap">
-          <canvas id="globe" width="960" height="960"></canvas>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="block" id="contact" style="border-bottom:none">
-    <div class="wrap">
-      <div class="contact-grid">
-        <div class="contact-copy">
-          <span class="eyebrow">Contact</span>
-          <h2 class="section-title">Let's design<br>your space</h2>
-          <p class="lead">Commercial, residential or interior — tell me about the site and the people who'll live or work in it, and I'll tell you how I'd approach it. Open to commissions, collaborations and internships.</p>
-          <div class="contact-list">
-            <a href="mailto:mnick123456@gmail.com"><span class="k">@</span>mnick123456@gmail.com</a>
-            <a href="tel:+255658677142"><span class="k">☎</span>+255 658 677 142</a>
-            <a href="https://wa.me/255658677142" target="_blank" rel="noopener"><span class="k">W</span>WhatsApp · +255 658 677 142</a>
-            <a href="#"><span class="k">⌖</span>Dar es Salaam, Tanzania</a>
-            <a href="Niko-Mtema-CV.pdf" download><span class="k">↓</span>Download CV (PDF)</a>
-          </div>
-        </div>
-
-        <form action="https://formsubmit.co/mnick123456@gmail.com" method="POST">
-          <input type="hidden" name="_subject" value="New enquiry from your portfolio">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="true">
-          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
-          <div class="field">
-            <label for="name">Your name</label>
-            <input id="name" name="name" type="text" placeholder="Asha Mushi" required>
-          </div>
-          <div class="field">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" placeholder="asha@company.com" required>
-          </div>
-          <div class="field">
-            <label for="type">Project type</label>
-            <select id="type" name="type">
-              <option>Residential</option>
-              <option>Commercial</option>
-              <option>Interior</option>
-              <option>Hospitality</option>
-              <option>Not sure yet</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="msg">The site and the people</label>
-            <textarea id="msg" name="message" placeholder="Tell me about the site, the brief, and who it's for." required></textarea>
-          </div>
-          <button class="btn btn-primary" type="submit">Send enquiry →</button>
-        </form>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<footer>
-  <div class="wrap">
-    <div class="brand">NIKO<b>·</b>MTEMA <small>Arkitekti Studios</small></div>
-    <div>Architectural Designer — commercial and residential design, Dar es Salaam.</div>
-    <div style="margin-top:8px">© <span id="yr"></span> Niko J Mtema. All rights reserved.</div>
+<!-- INFO PANEL -->
+<div class="panel" id="panel">
+  <div class="panel-head">
+    <button class="panel-close" onclick="World.closePanel()">✕</button>
+    <div class="eyebrow" id="p-sector"></div>
+    <h2 id="p-title"></h2>
+    <span class="status" id="p-status"></span>
   </div>
-</footer>
+  <div class="panel-body">
+    <p class="blurb" id="p-blurb"></p>
+    <div class="actions" id="p-actions"></div>
+    <div class="gallery-label" id="p-gallabel">Exterior</div>
+    <div class="thumbs" id="p-thumbs"></div>
+  </div>
+</div>
 
-<script>
-  document.getElementById('yr').textContent = new Date().getFullYear();
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" onclick="World.closeLightbox()">✕</button>
+  <button class="lb-nav lb-prev" onclick="World.lbStep(-1)">‹</button>
+  <div class="lb-stage" id="lb-stage">
+    <img id="lb-a" alt="">
+    <img id="lb-b" alt="">
+  </div>
+  <button class="lb-nav lb-next" onclick="World.lbStep(1)">›</button>
+  <button class="lb-play" id="lb-play" onclick="World.lbPlay()" title="Slideshow">▶</button>
+  <div class="lb-cap" id="lb-cap"></div>
+  <div class="lb-count" id="lb-count"></div>
+</div>
+
+<!-- INTRO -->
+<div class="intro" id="intro">
+  <div class="eyebrow">Interactive portfolio</div>
+  <h1>THE<br><b>MINI WORLD</b></h1>
+  <p>An island of Niko's projects. Fly between buildings, open their galleries, and step inside.</p>
+  <button class="enter" id="enterBtn" disabled>Building world…</button>
+  <div class="loadbar"><i id="loadfill"></i></div>
+  <div class="controls-note">Best on desktop · works on mobile too</div>
+</div>
+
+<!-- FALLBACK -->
+<div class="fallback" id="fallback">
+  <div>
+    <div style="font-family:var(--display);font-weight:700;font-size:22px">3D view unavailable</div>
+    <p style="color:var(--muted);margin-top:8px;max-width:40ch">Your browser or device couldn't start the 3D world. The full portfolio is still here:</p>
+    <a href="portfolio.html">Open the full portfolio →</a>
+  </div>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
 </script>
+
 <script type="module">
-  // Draggable globe (cobe) — recreated from the original portfolio, marked at Dar es Salaam
-  (async () => {
-    const canvas = document.getElementById('globe');
-    if (!canvas) return;
-    let createGlobe;
-    try {
-      const mod = await import('https://cdn.jsdelivr.net/npm/cobe@0.6.3/+esm');
-      createGlobe = mod.default;
-    } catch (e) { console.warn('Globe failed to load', e); return; }
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-    let phi = 4.9;                 // start roughly facing Africa
-    let width = canvas.offsetWidth || 480;
-    let pointerInteracting = null;
-    let pointerMovement = 0;
+/* ============================================================================
+   PROJECT CONFIG  —  the single source of truth for the whole world.
+   ----------------------------------------------------------------------------
+   To ADD A NEW PROJECT, copy one block below and fill it in:
+     id       : unique short id
+     title    : display name
+     sector   : small label above the title
+     status   : badge text (e.g. "Studio Project")
+     angle    : where it sits on the island ring, in degrees (0-360, any value)
+     type     : massing style if you have NO 3d model —
+                'tower' | 'blocks' | 'house' | 'pavilion' | 'plate'
+     color    : main building colour (hex)
+     hero     : the image shown on the project's billboard sign
+     exterior : [images] shown in the "Exterior" gallery
+     interior : [images] shown when you click "Enter interior" (can be [])
+     sitePlan : optional 'images/xxx.jpg' — adds a "Site plan" button
+     model    : optional 'models/xxx.glb' — if set, loads your own 3D model
+                in place of the procedural massing (drop the .glb in a models/ folder)
+     blurb    : one paragraph of description
+   Everything else (camera framing, label, billboard, picking) is automatic.
+   ========================================================================== */
+const PROJECTS = [
+  {
+    id:'hotel', title:'A 5-Star Hotel', sector:'Commercial · Hospitality', status:'Studio Project',
+    angle:90, type:'tower', color:0xece7df, hero:'images/hotel-1.jpg',
+    exterior:['images/hotel-1.jpg','images/hotel-2.jpg'],
+    interior:['images/hotel-3.jpg','images/hotel-4.jpg'],
+    sitePlan:null, model:null,
+    blurb:'Conceived around duality — a stone-clad podium anchoring two refined glass-and-concrete towers. Clean geometry softened by organic curves, a dialogue between structure and fluidity.'
+  },
+  {
+    id:'housing', title:'Affordable Housing', sector:'Residential · 350+ units', status:'Studio Project',
+    angle:150, type:'blocks', color:0xd8cfc1, hero:'images/housing-1.jpg',
+    exterior:['images/housing-1.jpg','images/housing-2.jpg','images/housing-3.jpg'],
+    interior:[], sitePlan:null, model:null,
+    blurb:'A community-oriented scheme of 350+ units using a colour-coded window-framing system to aid wayfinding and unit identification — vibrant character without added construction complexity.'
+  },
+  {
+    id:'residential', title:'Residentials', sector:'Residential', status:'Studio Project',
+    angle:210, type:'house', color:0xe8e2d6, hero:'images/res-1.jpg',
+    exterior:['images/res-1.jpg','images/res-2.jpg'],
+    interior:[], sitePlan:null, model:null,
+    blurb:'Single-family houses exploring massing, daylight and the threshold between interior and garden — homes that open up as the day moves across them.'
+  },
+  {
+    id:'interior', title:'Interior Design', sector:'Interiors', status:'Studio Project',
+    angle:270, type:'pavilion', color:0xc99a6a, hero:'images/interior-4.jpg',
+    exterior:['images/interior-4.jpg'],
+    interior:['images/interior-1.jpg','images/interior-2.jpg','images/interior-3.jpg','images/interior-4.jpg','images/interior-5.jpg'],
+    sitePlan:null, model:null,
+    blurb:'Interiors where colour and texture carry the mood — sage green and burnt orange against warm plaster, daylight and lamplight studied as carefully as the furniture.'
+  },
+  {
+    id:'marble', title:'Marble Interior', sector:'Interiors · Luxury', status:'Studio Project',
+    angle:330, type:'pavilion', color:0xbfae93, hero:'images/marble-3.jpg',
+    exterior:['images/marble-3.jpg'],
+    interior:['images/marble-1.jpg','images/marble-2.jpg','images/marble-3.jpg','images/marble-4.jpg','images/marble-5.jpg'],
+    sitePlan:null, model:null,
+    blurb:'Double-height living anchored by marble — a book-matched stone stair, a marble media wall and a freestanding bath against the skyline. Contrast between stone, light and void.'
+  },
+  {
+    id:'sketches', title:'Hand Sketches', sector:'Freehand · Pencil & ink', status:'By Hand',
+    angle:30, type:'plate', color:0xcdbfa8, hero:'images/sketch-6.jpg',
+    exterior:['images/sketch-1.jpg','images/sketch-2.jpg','images/sketch-3.jpg','images/sketch-4.jpg','images/sketch-5.jpg','images/sketch-6.jpg'],
+    interior:[], sitePlan:'images/sketch-1.jpg', groundTexture:'images/sketch-1.jpg', model:null,
+    blurb:'A complete hand-drafted set for the cafeteria — site plan at 1:200, floor plans, measured sections, construction details to 1:2, coloured elevations and a colour-pencil perspective.'
+  }
+];
 
-    const onResize = () => { width = canvas.offsetWidth || 480; };
-    window.addEventListener('resize', onResize);
+const RING = 62;         // island radius the projects sit on
+const ACCENT = 0xc75a30; // coral
 
-    canvas.onpointerdown = (e) => {
-      pointerInteracting = e.clientX - pointerMovement;
-      canvas.style.cursor = 'grabbing';
-    };
-    const release = () => { pointerInteracting = null; canvas.style.cursor = 'grab'; };
-    canvas.onpointerup = release;
-    canvas.onpointerout = release;
-    canvas.onpointermove = (e) => {
-      if (pointerInteracting !== null) pointerMovement = e.clientX - pointerInteracting;
-    };
+/* ---------- scene boot ---------- */
+let renderer, scene, camera, controls, raycaster, pointer;
+let sun, clock;
+const plots = {};        // id -> record
+const pickables = [];
+let hovered = null, selected = null;
+let camTween = null;
+const texLoader = new THREE.TextureLoader();
+const loaderMgr = new THREE.LoadingManager();
+texLoader.manager = loaderMgr;
 
-    createGlobe(canvas, {
-      devicePixelRatio: 2,
-      width: width * 2,
-      height: width * 2,
-      phi: 0,
-      theta: 0.22,
-      dark: 1,
-      diffuse: 1.25,
-      mapSamples: 18000,
-      mapBrightness: 5.2,
-      baseColor: [0.62, 0.56, 0.48],
-      markerColor: [0.71, 0.28, 0.12],
-      glowColor: [0.13, 0.11, 0.09],
-      markers: [{ location: [-6.7924, 39.2083], size: 0.12 }],
-      onRender: (state) => {
-        if (pointerInteracting === null) phi += 0.0045;
-        state.phi = phi + pointerMovement / 200;
-        state.width = width * 2;
-        state.height = width * 2;
-      },
-    });
-  })();
+function tex(url){ const t = texLoader.load(url); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t; }
+
+function init(){
+  try {
+    renderer = new THREE.WebGLRenderer({ antialias:true });
+  } catch(e){ showFallback(); return; }
+  if(!renderer || !renderer.getContext()){ showFallback(); return; }
+
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setSize(innerWidth, innerHeight);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.05;
+  document.getElementById('app').appendChild(renderer.domElement);
+
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x0c1c30);
+  scene.fog = new THREE.Fog(0x0c1c30, 130, 320);
+
+  camera = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 0.5, 1000);
+  camera.position.set(0, 78, 118);
+
+  controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.06;
+  controls.minDistance = 18;
+  controls.maxDistance = 240;
+  controls.maxPolarAngle = Math.PI * 0.49;
+  controls.target.set(0, 6, 0);
+
+  raycaster = new THREE.Raycaster();
+  pointer = new THREE.Vector2();
+  clock = new THREE.Clock();
+
+  buildLights();
+  buildIsland();
+  PROJECTS.forEach(buildPlot);
+  buildDock();
+
+  addEventListener('resize', onResize);
+  renderer.domElement.addEventListener('pointermove', onPointerMove);
+  renderer.domElement.addEventListener('pointerdown', onPointerDown);
+  renderer.domElement.addEventListener('pointerup', onPointerUp);
+
+  animate();
+}
+
+function buildLights(){
+  scene.add(new THREE.HemisphereLight(0xbfc7d6, 0x2a2016, 0.55));
+  sun = new THREE.DirectionalLight(0xffe6c2, 2.1);
+  sun.position.set(70, 90, 40);
+  sun.castShadow = true;
+  sun.shadow.mapSize.set(2048, 2048);
+  const s = 130;
+  sun.shadow.camera.left=-s; sun.shadow.camera.right=s; sun.shadow.camera.top=s; sun.shadow.camera.bottom=-s;
+  sun.shadow.camera.near=10; sun.shadow.camera.far=300; sun.shadow.bias=-0.0004;
+  scene.add(sun);
+  const fill = new THREE.DirectionalLight(0x8899bb, 0.4);
+  fill.position.set(-60, 40, -50); scene.add(fill);
+}
+
+function buildIsland(){
+  const plinth = new THREE.Mesh(
+    new THREE.CylinderGeometry(140, 150, 8, 64),
+    new THREE.MeshStandardMaterial({ color:0x110e0b, roughness:1 })
+  );
+  plinth.position.y = -4.2; plinth.receiveShadow = true; scene.add(plinth);
+
+  const ground = new THREE.Mesh(
+    new THREE.CylinderGeometry(112, 112, 2, 96),
+    new THREE.MeshStandardMaterial({ color:0xcdbfa8, roughness:.98 })
+  );
+  ground.position.y = -0.6; ground.receiveShadow = true; scene.add(ground);
+
+  const plaza = new THREE.Mesh(
+    new THREE.CylinderGeometry(20, 20, 0.6, 64),
+    new THREE.MeshStandardMaterial({ color:0xbdae96, roughness:.95 })
+  );
+  plaza.position.y = 0.5; plaza.receiveShadow = true; scene.add(plaza);
+
+  const ring = new THREE.Mesh(
+    new THREE.TorusGeometry(20, 0.35, 12, 80),
+    new THREE.MeshStandardMaterial({ color:ACCENT, roughness:.6 })
+  );
+  ring.rotation.x = Math.PI/2; ring.position.y = 0.85; scene.add(ring);
+
+  const mon = new THREE.Mesh(
+    new THREE.ConeGeometry(2.4, 9, 4),
+    new THREE.MeshStandardMaterial({ color:ACCENT, roughness:.5, metalness:.1 })
+  );
+  mon.position.y = 5; mon.castShadow = true; scene.add(mon);
+
+  PROJECTS.forEach(p=>{
+    const a = p.angle * Math.PI/180;
+    const path = new THREE.Mesh(
+      new THREE.PlaneGeometry(5, RING-16),
+      new THREE.MeshStandardMaterial({ color:0xb7a58b, roughness:.95 })
+    );
+    path.rotation.x = -Math.PI/2;
+    path.rotation.z = -a;
+    path.position.set(Math.cos(a)*(RING/2+2), 0.62, Math.sin(a)*(RING/2+2));
+    path.receiveShadow = true; scene.add(path);
+  });
+
+  for(let i=0;i<48;i++){
+    const r = 26 + Math.random()*80, a = Math.random()*Math.PI*2;
+    const x = Math.cos(a)*r, z = Math.sin(a)*r;
+    if (nearAnyPlot(x,z,14)) continue;
+    scene.add(makeTree(x,z));
+  }
+}
+
+function nearAnyPlot(x,z,d){
+  return PROJECTS.some(p=>{
+    const a=p.angle*Math.PI/180, px=Math.cos(a)*RING, pz=Math.sin(a)*RING;
+    return Math.hypot(x-px,z-pz) < d;
+  });
+}
+
+function makeTree(x,z){
+  const g = new THREE.Group();
+  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(.25,.35,2.4,6),
+    new THREE.MeshStandardMaterial({color:0x5a4632,roughness:1}));
+  trunk.position.y=1.2; trunk.castShadow=true; g.add(trunk);
+  const crown = new THREE.Mesh(new THREE.IcosahedronGeometry(1.7,0),
+    new THREE.MeshStandardMaterial({color:0x4a6b3a,roughness:1,flatShading:true}));
+  crown.position.y=3.1; crown.castShadow=true; crown.scale.y=1.15; g.add(crown);
+  g.position.set(x,0,z);
+  g.scale.setScalar(0.7+Math.random()*0.7);
+  return g;
+}
+
+/* ---------- per-project plot ---------- */
+function buildPlot(p){
+  const a = p.angle * Math.PI/180;
+  const x = Math.cos(a)*RING, z = Math.sin(a)*RING;
+  const group = new THREE.Group();
+  group.position.set(x, 0, z);
+  group.rotation.y = -a + Math.PI;   // face toward the plaza
+  scene.add(group);
+
+  const rec = { group, center:new THREE.Vector3(x, 7, z), pickables:[], project:p };
+
+  const baseMat = new THREE.MeshStandardMaterial({ color:0x2a2520, roughness:.9 });
+  const base = new THREE.Mesh(new THREE.BoxGeometry(24, 1.2, 24), baseMat);
+  base.position.y = 0.9; base.castShadow = true; base.receiveShadow = true;
+  group.add(base); tagPick(base, p, rec);
+
+  if (p.groundTexture){
+    const gt = new THREE.Mesh(new THREE.PlaneGeometry(22, 22),
+      new THREE.MeshBasicMaterial({ map:tex(p.groundTexture) }));
+    gt.rotation.x = -Math.PI/2; gt.position.y = 1.52; group.add(gt); tagPick(gt, p, rec);
+  }
+
+  if (p.model){
+    new GLTFLoader().load(p.model, gltf=>{
+      const m = gltf.scene; m.position.y = 1.5;
+      m.traverse(o=>{ if(o.isMesh){ o.castShadow=true; o.receiveShadow=true; tagPick(o,p,rec);} });
+      group.add(m);
+    }, undefined, ()=> group.add(proceduralMassing(p, rec)));
+  } else {
+    group.add(proceduralMassing(p, rec));
+  }
+
+  group.add(makeBillboard(p, rec));
+  const label = makeLabel(p.title, p.sector);
+  label.position.set(0, 27, 0); group.add(label);
+  rec.label = label;
+
+  const dir = new THREE.Vector3(x,0,z).normalize();
+  rec.camPos = new THREE.Vector3(x,0,z).add(dir.clone().multiplyScalar(46)).setY(32);
+  rec.camTarget = new THREE.Vector3(x, 12, z);
+
+  plots[p.id] = rec;
+}
+
+function tagPick(mesh, p, rec){ mesh.userData.pid = p.id; pickables.push(mesh); rec.pickables.push(mesh); }
+
+function proceduralMassing(p, rec){
+  const g = new THREE.Group();
+  const wall = new THREE.MeshStandardMaterial({ color:p.color, roughness:.85 });
+  const glass = new THREE.MeshStandardMaterial({ color:0x2b3038, roughness:.15, metalness:.4, transparent:true, opacity:.75, emissive:0x1a1510, emissiveIntensity:.4 });
+  const accent = new THREE.MeshStandardMaterial({ color:ACCENT, roughness:.6 });
+  const stone = new THREE.MeshStandardMaterial({ color:0xb8b0a2, roughness:.95 });
+  const box = (w,h,d,mat,y)=>{ const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat); m.position.y=1.5+y+h/2; m.castShadow=true; m.receiveShadow=true; g.add(m); tagPick(m,p,rec); return m; };
+
+  if (p.type==='tower'){
+    box(16,3,16, stone, 0);
+    const t1=box(5,20,6, glass, 3); t1.position.x=-3.5;
+    const t2=box(5,16,6, glass, 3); t2.position.x=3.5;
+    box(16,.6,16, accent, 3);
+  } else if (p.type==='blocks'){
+    for(let i=0;i<3;i++){ const b=box(4.5,9,14, wall, 0); b.position.x=(i-1)*6;
+      const w=box(4.6,9,1, glass, 0); w.position.set((i-1)*6,0,7.2);
+      const fr=box(4.8,.6,1.2, accent, 8.4); fr.position.x=(i-1)*6; }
+  } else if (p.type==='house'){
+    box(15,5,11, wall, 0);
+    const roof=new THREE.Mesh(new THREE.CylinderGeometry(0.01,8,3,4), new THREE.MeshStandardMaterial({color:0x3a332c,roughness:1}));
+    roof.rotation.y=Math.PI/4; roof.position.y=1.5+5+1.5; roof.castShadow=true; g.add(roof); tagPick(roof,p,rec);
+    const grn=box(6,4.4,.6, glass, 0.6); grn.position.set(0,1.5+2.5,5.6);
+  } else if (p.type==='pavilion'){
+    box(15,7,13, glass, 0);
+    box(15.4,.7,13.4, wall, 0);
+    box(15.4,.7,13.4, accent, 7);
+    for(let i=0;i<4;i++){ const c=box(.6,7,.6, stone, 0); c.position.set(i<2?-7.2:7.2, 0, i%2?-6.2:6.2); }
+  } else if (p.type==='plate'){
+    box(20,.4,20, stone, 0);
+    box(9,3.2,5, wall, 0);
+    box(11,.5,7, accent, 3.2);
+  }
+  return g;
+}
+
+function makeBillboard(p, rec){
+  // a double-sided photo panel on the OUTER edge of the plot — no solid frame in front to occlude it
+  const g = new THREE.Group();
+  const t = tex(p.hero);
+  const w = 13, h = 8.4, Z = -10, Y = 1.5+13;
+  // border / hover-glow sits BEHIND the photo (further from the approach camera) so it never occludes it
+  const glow = new THREE.Mesh(new THREE.PlaneGeometry(w+.8,h+.8),
+    new THREE.MeshBasicMaterial({color:0x0d0b09, side:THREE.DoubleSide}));
+  glow.position.set(0, Y, Z-0.3); g.add(glow); rec.glow = glow; rec.glowBase = 0x0d0b09;
+  const post = new THREE.Mesh(new THREE.CylinderGeometry(.24,.24,13,8),
+    new THREE.MeshStandardMaterial({color:0x2a2520,roughness:.8}));
+  post.position.set(-w/2, 1.5+6.5, Z-0.3); post.castShadow=true; g.add(post);
+  const post2 = post.clone(); post2.position.x = w/2; g.add(post2);
+  const mat = new THREE.MeshBasicMaterial({ color:0xffffff, side:THREE.DoubleSide });
+  texLoader.load(p.hero, function(tt){ tt.colorSpace = THREE.SRGBColorSpace; mat.map = tt; mat.needsUpdate = true; });
+  const pic = new THREE.Mesh(new THREE.PlaneGeometry(w,h), mat);
+  pic.position.set(0, Y, Z); g.add(pic); tagPick(pic,p,rec);
+  return g;
+}
+
+function makeLabel(title, sub){
+  const c = document.createElement('canvas'); c.width=512; c.height=140;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle='rgba(13,31,50,0.82)'; roundRect(ctx,6,6,500,128,16); ctx.fill();
+  ctx.strokeStyle='rgba(199,90,48,0.9)'; ctx.lineWidth=3; roundRect(ctx,6,6,500,128,16); ctx.stroke();
+  ctx.textAlign='center';
+  ctx.fillStyle='#ece7df'; ctx.font='800 46px Archivo, sans-serif';
+  ctx.fillText(title, 256, 66);
+  ctx.fillStyle='#c75a30'; ctx.font='600 22px Inter, sans-serif';
+  ctx.fillText(sub.toUpperCase(), 256, 104);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+  const spr = new THREE.Sprite(new THREE.SpriteMaterial({map:t, transparent:true, depthTest:false}));
+  spr.scale.set(15, 4.2, 1); spr.renderOrder = 5;
+  return spr;
+}
+function roundRect(ctx,x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+
+/* ---------- interaction ---------- */
+let downXY = null;
+function onPointerMove(e){
+  pointer.x = (e.clientX/innerWidth)*2-1;
+  pointer.y = -(e.clientY/innerHeight)*2+1;
+  raycaster.setFromCamera(pointer, camera);
+  const hit = raycaster.intersectObjects(pickables, false)[0];
+  const id = hit ? hit.object.userData.pid : null;
+  if (id !== hovered){
+    setGlow(hovered, 0); hovered = id; setGlow(hovered, 0.5);
+    document.body.style.cursor = id ? 'pointer' : 'default';
+  }
+}
+function setGlow(id, on){ const r = id && plots[id]; if(r && r.glow) r.glow.material.color.setHex(on ? ACCENT : r.glowBase); }
+function onPointerDown(e){ downXY=[e.clientX,e.clientY]; }
+function onPointerUp(e){
+  if(!downXY) return;
+  const moved = Math.hypot(e.clientX-downXY[0], e.clientY-downXY[1]);
+  downXY=null;
+  if(moved>6) return;
+  pointer.x=(e.clientX/innerWidth)*2-1; pointer.y=-(e.clientY/innerHeight)*2+1;
+  raycaster.setFromCamera(pointer,camera);
+  const hit = raycaster.intersectObjects(pickables,false)[0];
+  if(hit) focusProject(hit.object.userData.pid);
+}
+
+function focusProject(id){
+  const rec = plots[id]; if(!rec) return;
+  selected = id;
+  flyTo(rec.camPos, rec.camTarget);
+  openPanel(rec.project);
+  [...document.querySelectorAll('.dock button')].forEach(b=>b.classList.toggle('active', b.dataset.id===id));
+  fadeHint();
+}
+
+function flyTo(pos, target, dur=1.2){
+  camTween = { fromP:camera.position.clone(), toP:pos.clone(),
+               fromT:controls.target.clone(), toT:target.clone(), t:0, dur };
+}
+const easeInOut = k => k<.5 ? 2*k*k : 1-Math.pow(-2*k+2,2)/2;
+
+/* ---------- panel + gallery ---------- */
+window.World = window.World || {};
+function openPanel(p){
+  document.getElementById('p-sector').textContent = p.sector;
+  document.getElementById('p-title').textContent = p.title;
+  document.getElementById('p-status').textContent = p.status;
+  document.getElementById('p-blurb').textContent = p.blurb;
+
+  const actions = document.getElementById('p-actions'); actions.innerHTML='';
+  if (p.interior && p.interior.length){
+    const b=document.createElement('button'); b.className='primary'; b.innerHTML='⤢ Enter interior';
+    b.onclick=()=>openGallery(p.interior, p.title+' — interior'); actions.appendChild(b);
+  }
+  if (p.sitePlan){
+    const b=document.createElement('button'); b.innerHTML='▦ Site plan';
+    b.onclick=()=>openGallery([p.sitePlan], p.title+' — site plan'); actions.appendChild(b);
+  }
+  const bp=document.createElement('button'); bp.innerHTML='↗ Full page';
+  bp.onclick=()=>location.href='portfolio.html#work'; actions.appendChild(bp);
+
+  document.getElementById('p-gallabel').textContent = (p.exterior && p.exterior.length>1) ? 'Exterior' : 'Views';
+  const thumbs = document.getElementById('p-thumbs'); thumbs.innerHTML='';
+  const set = (p.exterior && p.exterior.length) ? p.exterior : p.interior;
+  set.forEach((src,i)=>{
+    const d=document.createElement('div'); d.className='t'+((set.length%2===1&&i===0)?' wide':'');
+    d.style.backgroundImage=`url('${src}')`;
+    d.style.animationDelay=(120+i*80)+'ms';       // staggered entrance as the panel slides in
+    d.onclick=()=>openGallery(set, p.title, i); thumbs.appendChild(d);
+  });
+  document.getElementById('panel').classList.add('open');
+}
+World.closePanel = ()=>{ document.getElementById('panel').classList.remove('open'); };
+
+/* ---------- lightbox with slide/fade transitions + slideshow ---------- */
+let lbSet=[], lbIdx=0, lbCap='', lbActive=0, lbPlaying=false, lbTimer=null;
+const lbImgs = [document.getElementById('lb-a'), document.getElementById('lb-b')];
+const EASE = 'opacity .55s ease, transform .55s cubic-bezier(.22,.9,.3,1)';
+
+function lbMeta(){
+  document.getElementById('lb-cap').textContent = lbCap;
+  document.getElementById('lb-count').textContent = (lbIdx+1)+' / '+lbSet.length;
+}
+function openGallery(arr, cap, idx=0){
+  lbSet=arr; lbIdx=idx; lbCap=cap; lbActive=0;
+  lbImgs.forEach(i=>{ i.style.transition='none'; i.style.opacity='0'; i.style.transform='scale(.97)'; i.classList.remove('kb'); });
+  const img = lbImgs[0];
+  img.src = lbSet[lbIdx];
+  requestAnimationFrame(()=>{ requestAnimationFrame(()=>{
+    img.style.transition = EASE;
+    img.style.opacity='1'; img.style.transform='scale(1)';
+  });});
+  lbMeta();
+  document.getElementById('lightbox').classList.add('open');
+}
+function lbGo(d){
+  if(lbSet.length<2){ return; }
+  const out = lbImgs[lbActive], inn = lbImgs[1-lbActive];
+  lbIdx = (lbIdx+d+lbSet.length)%lbSet.length;
+  inn.classList.remove('kb');
+  inn.src = lbSet[lbIdx];
+  inn.style.transition='none';
+  inn.style.transform = `translateX(${d*9}%) scale(1.02)`;
+  inn.style.opacity='0';
+  inn.getBoundingClientRect();                    // flush styles before animating
+  inn.style.transition = EASE;
+  inn.style.transform = 'translateX(0) scale(1)';
+  inn.style.opacity='1';
+  out.classList.remove('kb');
+  out.style.transition = EASE;
+  out.style.transform = `translateX(${-d*7}%) scale(.97)`;
+  out.style.opacity='0';
+  if(lbPlaying) inn.classList.add('kb');          // slow Ken Burns drift while slideshow plays
+  lbActive = 1-lbActive;
+  lbMeta();
+}
+World.lbStep = d=>{ lbGo(d); if(lbPlaying) lbRestartTimer(); };
+function lbRestartTimer(){ clearInterval(lbTimer); lbTimer = setInterval(()=>lbGo(1), 3800); }
+World.lbPlay = ()=>{
+  lbPlaying = !lbPlaying;
+  const b = document.getElementById('lb-play');
+  b.textContent = lbPlaying ? '❚❚' : '▶';
+  b.classList.toggle('on', lbPlaying);
+  if(lbPlaying){ lbImgs[lbActive].classList.add('kb'); lbRestartTimer(); }
+  else { clearInterval(lbTimer); lbImgs.forEach(i=>i.classList.remove('kb')); }
+};
+World.closeLightbox = ()=>{
+  document.getElementById('lightbox').classList.remove('open');
+  if(lbPlaying) World.lbPlay();                   // stop slideshow on close
+};
+// swipe to change image (mobile)
+(function(){
+  const stage = document.getElementById('lb-stage');
+  let sx = null;
+  stage.addEventListener('pointerdown', e=>{ sx = e.clientX; });
+  stage.addEventListener('pointerup', e=>{
+    if(sx===null) return;
+    const dx = e.clientX - sx; sx = null;
+    if(Math.abs(dx) > 40) World.lbStep(dx<0 ? 1 : -1);
+  });
+})();
+
+/* ---------- dock + aerial ---------- */
+function buildDock(){
+  const dock=document.getElementById('dock');
+  PROJECTS.forEach(p=>{
+    const b=document.createElement('button'); b.dataset.id=p.id;
+    b.innerHTML=`<span class="dot" style="color:#${p.color.toString(16).padStart(6,'0')}"></span><span class="txt">${p.title}</span>`;
+    b.onclick=()=>focusProject(p.id); dock.appendChild(b);
+  });
+}
+World.aerial = ()=>{
+  selected=null;
+  flyTo(new THREE.Vector3(0,78,118), new THREE.Vector3(0,6,0), 1.4);
+  World.closePanel();
+  [...document.querySelectorAll('.dock button')].forEach(b=>b.classList.remove('active'));
+};
+
+/* ---------- loop ---------- */
+function animate(){
+  requestAnimationFrame(animate);
+  const dt = clock.getDelta();
+  if(camTween){
+    camTween.t += dt/camTween.dur;
+    const k = easeInOut(Math.min(1, camTween.t));
+    camera.position.lerpVectors(camTween.fromP, camTween.toP, k);
+    controls.target.lerpVectors(camTween.fromT, camTween.toT, k);
+    if(camTween.t>=1) camTween=null;
+  }
+  controls.update();
+  renderer.render(scene, camera);
+}
+
+function onResize(){
+  camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+}
+function fadeHint(){ const h=document.getElementById('hint'); if(h) h.style.opacity='0'; }
+
+/* ---------- loader / intro wiring ---------- */
+loaderMgr.onProgress=(u,l,t)=>{ document.getElementById('loadfill').style.width=Math.round(l/t*100)+'%'; };
+loaderMgr.onLoad=()=>{ document.getElementById('loadfill').style.width='100%'; };
+
+const enterBtn=document.getElementById('enterBtn');
+enterBtn.addEventListener('click',()=>{
+  document.getElementById('intro').classList.add('hide');
+  setTimeout(fadeHint, 4000);
+});
+function showFallback(){ document.getElementById('intro').classList.add('hide'); document.getElementById('fallback').classList.add('show'); }
+
+addEventListener('keydown',e=>{
+  const lbOpen=document.getElementById('lightbox').classList.contains('open');
+  if(e.key==='Escape'){ if(lbOpen) World.closeLightbox(); else if(document.getElementById('panel').classList.contains('open')){ World.closePanel(); World.aerial(); } }
+  if(e.key==='ArrowRight' && lbOpen) World.lbStep(1);
+  if(e.key==='ArrowLeft' && lbOpen) World.lbStep(-1);
+});
+
+// boot
+try { init(); enterBtn.disabled=false; enterBtn.textContent='Enter the world →'; }
+catch(err){ console.error(err); showFallback(); }
 </script>
 </body>
 </html>
